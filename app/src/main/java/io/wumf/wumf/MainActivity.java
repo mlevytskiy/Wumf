@@ -1,7 +1,9 @@
 package io.wumf.wumf;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,10 +24,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private AppBarLayout appBarLayout;
+    private TabLayout tabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_animation);
+
+        appBarLayout = (AppBarLayout) findViewById(R.id.tabanim_appbar);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.tabanim_toolbar);
         setSupportActionBar(toolbar);
@@ -34,8 +41,11 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager = (ViewPager) findViewById(R.id.tabanim_viewpager);
         setupViewPager(viewPager);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        appBarLayout.setBackgroundColor(getResources().getColor(R.color.background_floating_material_light));
+        tabLayout.setTabTextColors(Color.BLACK, Color.BLACK);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -45,13 +55,20 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (tab.getPosition()) {
                     case 0:
-                        showToast("One");
+                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.background_floating_material_light));
+                        tabLayout.setTabTextColors(Color.BLACK, Color.BLACK);
                         break;
                     case 1:
-                        showToast("Two");
+                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.primary_700));
+                        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
                         break;
                     case 2:
-                        showToast("Three");
+                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.accent_material_light));
+                        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
+                        break;
+                    case 3:
+                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.accent_700));
+                        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
                         break;
                 }
             }
@@ -74,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "timeline");
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "all");
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.ripple_material_light)), "new");
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.button_material_dark)), "removed");
+        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.background_floating_material_light)), "timeline");
+        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.primary_700)), "all");
+        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "new");
+        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_700)), "removed");
         viewPager.setAdapter(adapter);
     }
 
