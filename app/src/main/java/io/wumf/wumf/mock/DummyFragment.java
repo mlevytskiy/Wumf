@@ -1,4 +1,4 @@
-package io.wumf.wumf;
+package io.wumf.wumf.mock;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.wumf.wumf.R;
+import io.wumf.wumf.adapter.SimpleRecyclerAdapter;
+import io.wumf.wumf.mock.VersionModel;
 
 /**
  * Created by max on 25.03.16.

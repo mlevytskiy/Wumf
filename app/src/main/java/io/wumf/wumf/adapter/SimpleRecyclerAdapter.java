@@ -1,4 +1,4 @@
-package io.wumf.wumf;
+package io.wumf.wumf.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.wumf.wumf.R;
 
 /**
  * Created by Suleiman on 14-04-2015.

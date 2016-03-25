@@ -1,4 +1,4 @@
-package io.wumf.wumf;
+package io.wumf.wumf.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.wumf.wumf.R;
+import io.wumf.wumf.mock.DummyFragment;
 
 public class MainActivity extends AppCompatActivity {
 
