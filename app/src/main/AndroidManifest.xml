@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -15,6 +16,31 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <receiver android:name=".receiver.AddAppReceiver"
+                  android:exported="true"
+                  android:enabled="true" >
+
+            <intent-filter
+                android:priority="999">
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+
+        </receiver>
+
+        <receiver android:name=".receiver.RemoveAppReceiver"
+                  android:exported="true"
+                  android:enabled="true" >
+
+            <intent-filter
+                android:priority="999">
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+
+        </receiver>
+
     </application>
 
 </manifest>
