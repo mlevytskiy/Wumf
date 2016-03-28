@@ -11,6 +11,7 @@ import java.util.List;
 
 import io.wumf.wumf.R;
 import io.wumf.wumf.memory.App;
+import io.wumf.wumf.memory.AppsManager;
 import io.wumf.wumf.util.AppUtils;
 
 /**
@@ -30,12 +31,30 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
         this.setHasStableIds(true);
         new AsyncTask<Void, Void, List<App>>() {
 
+            private List<App> appsFromDatabase;
+            private AppsManager appsManager;
+
+            protected void onPreExecute() {
+                appsManager = new AppsManager();
+                appsFromDatabase = appsManager.getAll();
+            }
+
             @Override
             protected List<App> doInBackground(Void... params) {
-                return new AppUtils(context).loadAllAppsFromSystem();
+                if (appsFromDatabase.isEmpty()) {
+                    List<App> apps = new AppUtils(context).loadAllAppsFromSystem();
+                    return apps;
+                } else {
+                    return appsFromDatabase;
+                }
             }
 
             protected void onPostExecute(List<App> apps) {
+                if (appsFromDatabase.isEmpty()) {
+                    appsManager.saveAll(apps);
+                } else {
+                    //do nothing
+                }
                 TimelineAdapter.this.apps.addAll(apps);
                 notifyDataSetChanged();
             }

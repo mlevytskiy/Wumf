@@ -12,7 +12,8 @@ public class AddAppReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "add app", Toast.LENGTH_LONG).show();
+        String packageName = intent.getData().getEncodedSchemeSpecificPart();
+        Toast.makeText(context, "add app " + packageName, Toast.LENGTH_LONG).show();
     }
 
 }
