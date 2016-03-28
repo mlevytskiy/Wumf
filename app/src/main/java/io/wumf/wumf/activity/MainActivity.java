@@ -81,18 +81,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        new AsyncTask<Void, Void, List<App>>() {
-//
-//            @Override
-//            protected List<App> doInBackground(Void... params) {
-//                return new AppUtils(MainActivity.this).loadAllAppsFromSystem();
-//            }
-//
-//            protected void onPostExecute(List<App> apps) {
-//                Toast.makeText(MainActivity.this, "text=" + apps, Toast.LENGTH_LONG).show();
-//            }
-//
-//        }.execute();
     }
 
     void showToast(String msg) {
