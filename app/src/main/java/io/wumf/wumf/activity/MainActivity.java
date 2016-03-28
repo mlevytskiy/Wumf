@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.wumf.wumf.R;
+import io.wumf.wumf.fragment.TimelineFragment;
 import io.wumf.wumf.mock.DummyFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -79,6 +80,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+//        new AsyncTask<Void, Void, List<App>>() {
+//
+//            @Override
+//            protected List<App> doInBackground(Void... params) {
+//                return new AppUtils(MainActivity.this).loadAllAppsFromSystem();
+//            }
+//
+//            protected void onPostExecute(List<App> apps) {
+//                Toast.makeText(MainActivity.this, "text=" + apps, Toast.LENGTH_LONG).show();
+//            }
+//
+//        }.execute();
     }
 
     void showToast(String msg) {
@@ -87,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.background_floating_material_light)), "timeline");
+
+        adapter.addFrag(new TimelineFragment(), "timeline");
+//        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.background_floating_material_light)), "timeline");
         adapter.addFrag(new DummyFragment(getResources().getColor(R.color.primary_700)), "all");
         adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "new");
         adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_700)), "removed");

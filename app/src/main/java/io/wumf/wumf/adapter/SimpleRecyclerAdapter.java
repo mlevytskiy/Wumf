@@ -91,7 +91,6 @@ public class SimpleRecyclerAdapter extends RecyclerView.Adapter<SimpleRecyclerAd
             } else {
                 subTitle.setVisibility(View.GONE);
             }
-
         }
 
         @Override
