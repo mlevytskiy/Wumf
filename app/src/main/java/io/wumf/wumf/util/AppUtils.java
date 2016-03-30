@@ -35,7 +35,12 @@ public class AppUtils {
     }
 
     public App loadAppFromSystem(String packageName) {
-        return null;
+        PackageManager pm = context.getPackageManager();
+        Intent intent = new Intent();
+        intent.setPackage(packageName);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        ResolveInfo resolveInfo = pm.resolveActivity(intent, 0);
+        return resolveInfoToApp(pm, resolveInfo);
     }
 
     private App resolveInfoToApp(PackageManager pm, ResolveInfo resolveInfo) {

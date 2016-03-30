@@ -21,10 +21,12 @@ public class AppsManager {
         return results.subList(0, results.size());
     }
 
-    public void save(App app) {
-        realm.beginTransaction();
-        realm.copyToRealmOrUpdate(app);
-        realm.commitTransaction();
+    public App find(String packageName) {
+        return realm.where(App.class).equalTo("packageName", packageName).findFirst();
+    }
+
+    public Realm getRealm() {
+        return realm;
     }
 
     public void saveAll(List<App> apps) {
