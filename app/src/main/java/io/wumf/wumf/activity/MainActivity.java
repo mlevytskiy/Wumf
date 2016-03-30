@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.wumf.wumf.R;
+import io.wumf.wumf.fragment.AllAppsFragment;
+import io.wumf.wumf.fragment.NewAppsFragment;
+import io.wumf.wumf.fragment.RemovedAppsFragment;
 import io.wumf.wumf.fragment.TimelineFragment;
-import io.wumf.wumf.mock.DummyFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,9 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.addFrag(new TimelineFragment(), "timeline");
 //        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.background_floating_material_light)), "timeline");
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.primary_700)), "all");
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "new");
-        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_700)), "removed");
+        adapter.addFrag(new AllAppsFragment(), "all");
+        adapter.addFrag(new NewAppsFragment(), "new");
+//        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "new");
+//        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_700)), "removed");
+        adapter.addFrag(new RemovedAppsFragment(), "removed");
         viewPager.setAdapter(adapter);
     }
 
