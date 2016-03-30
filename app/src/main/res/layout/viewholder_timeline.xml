@@ -3,7 +3,7 @@
                                     xmlns:app="http://schemas.android.com/apk/res-auto"
                                     android:id="@+id/dummyfrag_bg"
                                     android:layout_width="match_parent"
-                                    android:layout_height="70dp"
+                                    android:layout_height="160dp"
                                     android:layout_marginBottom="5dp"
                                     android:layout_marginLeft="8dp"
                                     android:layout_marginRight="8dp"
@@ -15,28 +15,40 @@
                                     app:cardElevation="@dimen/cardview_default_elevation">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingLeft="8dp">
-
-        <io.wumf.wumf.view.IconImageView
-            android:id="@+id/icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
-
-        <io.wumf.wumf.view.LabelTextView
-            android:id="@+id/label"
-            android:paddingLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/is_removed"
-            android:paddingLeft="10dp"
+            android:id="@+id/data"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="8dp">
+
+            <io.wumf.wumf.view.IconImageView
+                android:id="@+id/icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+
+            <io.wumf.wumf.view.LabelTextView
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/is_removed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
