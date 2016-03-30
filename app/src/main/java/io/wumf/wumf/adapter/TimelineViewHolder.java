@@ -3,11 +3,10 @@ package io.wumf.wumf.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.funakoshi.resolveInfoAsyncLoader.IconImageView;
-import com.funakoshi.resolveInfoAsyncLoader.LabelTextView;
-
 import io.wumf.wumf.R;
 import io.wumf.wumf.memory.App;
+import io.wumf.wumf.view.IconImageView;
+import io.wumf.wumf.view.LabelTextView;
 
 /**
  * Created by max on 28.03.16.
@@ -24,8 +23,8 @@ public class TimelineViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindApp(App app) {
-        icon.setPackageName(app.getPackageName());
-        label.setPackageName(app.getPackageName());
+        icon.setApp(app);
+        label.setApp(app);
     }
 
 }

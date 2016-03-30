@@ -21,12 +21,12 @@
         android:gravity="center"
         android:paddingLeft="8dp">
 
-        <com.funakoshi.resolveInfoAsyncLoader.IconImageView
+        <io.wumf.wumf.view.IconImageView
             android:id="@+id/icon"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
 
-        <com.funakoshi.resolveInfoAsyncLoader.LabelTextView
+        <io.wumf.wumf.view.LabelTextView
             android:id="@+id/label"
             android:paddingLeft="10dp"
             android:layout_width="wrap_content"

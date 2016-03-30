@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +19,13 @@ import io.wumf.wumf.memory.App;
 public class AppUtils {
 
     private Context context;
+    private SaveIconUtils saveIconUtils;
+    private FileGenerator fileGenerator;
 
     public AppUtils(Context context) {
         this.context = context;
+        saveIconUtils = new SaveIconUtils(context);
+        fileGenerator = new FileGenerator(context);
     }
 
     public List<App> loadAllAppsFromSystem() {
@@ -35,8 +41,10 @@ public class AppUtils {
     private App resolveInfoToApp(PackageManager pm, ResolveInfo resolveInfo) {
         App app = new App();
         app.setInstallDate(getInstallDate(pm, resolveInfo.activityInfo.packageName));
+        app.setLabel(((String) resolveInfo.loadLabel(pm)));
         app.setPackageName(resolveInfo.activityInfo.packageName);
         app.setRemoved(false);
+        app.setIconPath(loadAndSaveIconInFile(pm, resolveInfo));
         return app;
     }
 
@@ -63,6 +71,13 @@ public class AppUtils {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    private String loadAndSaveIconInFile(PackageManager pm, ResolveInfo resolveInfo) {
+        Drawable drawable = resolveInfo.loadIcon(pm);
+        File file = fileGenerator.generate(resolveInfo);
+        saveIconUtils.saveInFile(file, drawable);
+        return file.getAbsolutePath();
     }
 
 }

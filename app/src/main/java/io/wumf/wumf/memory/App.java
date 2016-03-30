@@ -12,6 +12,8 @@ public class App extends RealmObject {
     private String packageName;
     private boolean isRemoved;
     private long installDate;
+    private String iconPath;
+    private String label;
 
     public String getPackageName() {
         return packageName;
@@ -37,4 +39,19 @@ public class App extends RealmObject {
         this.installDate = installDate;
     }
 
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    public void setIconPath(String iconPath) {
+        this.iconPath = iconPath;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

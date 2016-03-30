@@ -15,8 +15,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.wumf.wumf.R;
 import io.wumf.wumf.fragment.TimelineFragment;
 import io.wumf.wumf.mock.DummyFragment;
@@ -31,12 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_animation);
 
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this)
-                .name("myrealm.realm")
-                .schemaVersion(42)
-                .build();
-
-        Realm.setDefaultConfiguration(realmConfig);
         appBarLayout = (AppBarLayout) findViewById(R.id.tabanim_appbar);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.tabanim_toolbar);
