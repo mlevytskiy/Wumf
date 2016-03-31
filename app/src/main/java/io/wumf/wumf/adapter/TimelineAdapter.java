@@ -13,7 +13,7 @@ import io.realm.Realm;
 import io.wumf.wumf.R;
 import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.util.AppUtils;
-import io.wumf.wumf.util.getApps.GetAppsStrategy;
+import io.wumf.wumf.util.getApps.GetAllApps;
 import io.wumf.wumf.viewHolder.TimelineViewHolder;
 
 /**
@@ -34,10 +34,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
         new AsyncTask<Void, Void, List<App>>() {
 
             private List<App> appsFromDatabase;
-            private GetAppsStrategy getAppsStrategy;
 
             protected void onPreExecute() {
-                appsFromDatabase = getAppsStrategy.get();
+                appsFromDatabase = new GetAllApps().get();
             }
 
             @Override
