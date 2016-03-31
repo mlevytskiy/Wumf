@@ -9,8 +9,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.wumf.wumf.R;
-import io.wumf.wumf.memory.App;
-import io.wumf.wumf.memory.AppsManager;
+import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.util.AppUtils;
 
 /**
@@ -35,19 +34,15 @@ public class SplashScreenActivity extends Activity {
     private void loadingData() {
         new AsyncTask<Void, Void, List<App>>() {
 
-            private AppsManager appsManager;
-
-            protected void onPreExecute() {
-                appsManager = new AppsManager();
-            }
-
             @Override
             protected List<App> doInBackground(Void... params) {
                     return new AppUtils(SplashScreenActivity.this).loadAllAppsFromSystem();
             }
 
             protected void onPostExecute(List<App> apps) {
-                appsManager.saveAll(apps);
+                Realm.getDefaultInstance().beginTransaction();
+                Realm.getDefaultInstance().copyToRealmOrUpdate(apps);
+                Realm.getDefaultInstance().commitTransaction();
                 gotoMainActivity();
             }
         }.execute();

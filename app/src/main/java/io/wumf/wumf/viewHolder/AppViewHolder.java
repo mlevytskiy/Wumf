@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import io.wumf.wumf.R;
-import io.wumf.wumf.memory.App;
+import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.view.IconImageView;
 import io.wumf.wumf.view.LabelTextView;
 

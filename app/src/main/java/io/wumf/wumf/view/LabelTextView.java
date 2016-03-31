@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import io.wumf.wumf.memory.App;
+import io.wumf.wumf.realmObject.App;
 
 /**
  * Created by max on 30.03.16.

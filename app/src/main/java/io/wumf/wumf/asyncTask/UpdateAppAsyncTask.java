@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import io.realm.Realm;
-import io.wumf.wumf.memory.App;
+import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.util.AppUtils;
 
 /**

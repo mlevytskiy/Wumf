@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import io.wumf.wumf.R;
-import io.wumf.wumf.memory.App;
-import io.wumf.wumf.memory.AppsManager;
+import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.util.AppUtils;
+import io.wumf.wumf.util.getApps.GetAppsStrategy;
 import io.wumf.wumf.viewHolder.TimelineViewHolder;
 
 /**
@@ -33,18 +34,16 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
         new AsyncTask<Void, Void, List<App>>() {
 
             private List<App> appsFromDatabase;
-            private AppsManager appsManager;
+            private GetAppsStrategy getAppsStrategy;
 
             protected void onPreExecute() {
-                appsManager = new AppsManager();
-                appsFromDatabase = appsManager.getAll();
+                appsFromDatabase = getAppsStrategy.get();
             }
 
             @Override
             protected List<App> doInBackground(Void... params) {
                 if (appsFromDatabase.isEmpty()) {
-                    List<App> apps = new AppUtils(context).loadAllAppsFromSystem();
-                    return apps;
+                    return new AppUtils(context).loadAllAppsFromSystem();
                 } else {
                     return appsFromDatabase;
                 }
@@ -52,7 +51,9 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
 
             protected void onPostExecute(List<App> apps) {
                 if (appsFromDatabase.isEmpty()) {
-                    appsManager.saveAll(apps);
+                    Realm.getDefaultInstance().beginTransaction();
+                    Realm.getDefaultInstance().copyToRealmOrUpdate(apps);
+                    Realm.getDefaultInstance().commitTransaction();
                 } else {
                     //do nothing
                 }

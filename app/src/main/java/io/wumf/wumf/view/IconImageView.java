@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 
-import io.wumf.wumf.memory.App;
+import io.wumf.wumf.realmObject.App;
 
 /**
  * Created by max on 30.03.16.

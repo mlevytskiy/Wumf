@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.wumf.wumf.R;
-import io.wumf.wumf.memory.App;
+import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.util.getApps.Callback;
 import io.wumf.wumf.util.getApps.GetAppsStrategy;
 import io.wumf.wumf.viewHolder.AppViewHolder;

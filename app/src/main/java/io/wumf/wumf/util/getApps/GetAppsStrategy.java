@@ -2,7 +2,7 @@ package io.wumf.wumf.util.getApps;
 
 import java.util.List;
 
-import io.wumf.wumf.memory.App;
+import io.wumf.wumf.realmObject.App;
 
 /**
  * Created by max on 31.03.16.

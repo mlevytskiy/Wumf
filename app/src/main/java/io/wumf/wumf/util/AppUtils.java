@@ -11,7 +11,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.wumf.wumf.memory.App;
+import io.wumf.wumf.realmObject.App;
+import io.wumf.wumf.realmObject.Event;
+import io.wumf.wumf.realmObject.EventType;
 
 /**
  * Created by max on 25.03.16.
@@ -50,6 +52,7 @@ public class AppUtils {
         app.setPackageName(resolveInfo.activityInfo.packageName);
         app.setRemoved(false);
         app.setIconPath(loadAndSaveIconInFile(pm, resolveInfo));
+        addFirstAddedEvent(app);
         return app;
     }
 
@@ -83,6 +86,20 @@ public class AppUtils {
         File file = fileGenerator.generate(resolveInfo);
         saveIconUtils.saveInFile(file, drawable);
         return file.getAbsolutePath();
+    }
+
+    private Event getFirstAddedEvent(App app) {
+        Event event = new Event();
+        event.setTime(app.getInstallDate());
+        event.setEventType(EventType.toInt(EventType.ADD));
+        return event;
+    }
+
+    private void addFirstAddedEvent(App app) {
+        Event event = getFirstAddedEvent(app);
+        List<Event> events = new ArrayList<>();
+        events.add(event);
+        app.setEvents(events);
     }
 
 }

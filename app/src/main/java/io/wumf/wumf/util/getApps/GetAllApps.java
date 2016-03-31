@@ -6,7 +6,7 @@ import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
-import io.wumf.wumf.memory.App;
+import io.wumf.wumf.realmObject.App;
 
 /**
  * Created by max on 31.03.16.
