@@ -1,4 +1,4 @@
-package io.wumf.wumf.adapter;
+package io.wumf.wumf.viewHolder;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Time;
@@ -13,14 +13,14 @@ import io.wumf.wumf.view.LabelTextView;
 /**
  * Created by max on 28.03.16.
  */
-public class TimelineViewHolder extends RecyclerView.ViewHolder {
+public class AppViewHolder extends RecyclerView.ViewHolder {
 
     private IconImageView icon;
     private LabelTextView label;
     private TextView isRemovedTextView;
     private TextView data;
 
-    public TimelineViewHolder(View itemView) {
+    public AppViewHolder(View itemView) {
         super(itemView);
         label = (LabelTextView) itemView.findViewById(R.id.label);
         icon = (IconImageView) itemView.findViewById(R.id.icon);

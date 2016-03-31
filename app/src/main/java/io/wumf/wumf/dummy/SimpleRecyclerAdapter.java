@@ -1,4 +1,4 @@
-package io.wumf.wumf.adapter;
+package io.wumf.wumf.dummy;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;

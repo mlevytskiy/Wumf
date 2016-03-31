@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Date;
-
 import io.wumf.wumf.R;
 import io.wumf.wumf.adapter.RemovedAppsAdapter;
 
@@ -28,9 +26,7 @@ public class RemovedAppsFragment extends Fragment {
                 return true;
             }
         });
-        Date date = new Date();
-        date.setDate((date.getDate()-1));
-        recyclerView.setAdapter(new RemovedAppsAdapter(getContext()));
+        recyclerView.setAdapter(new RemovedAppsAdapter());
         return view;
     }
 

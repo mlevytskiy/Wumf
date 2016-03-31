@@ -13,6 +13,7 @@ import io.wumf.wumf.R;
 import io.wumf.wumf.memory.App;
 import io.wumf.wumf.memory.AppsManager;
 import io.wumf.wumf.util.AppUtils;
+import io.wumf.wumf.viewHolder.TimelineViewHolder;
 
 /**
  * Created by max on 28.03.16.

@@ -1,4 +1,4 @@
-package io.wumf.wumf.mock;
+package io.wumf.wumf.dummy;
 
 /**
  * Created by Suleiman on 14-04-2015.
