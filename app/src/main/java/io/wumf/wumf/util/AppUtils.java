@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
 import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.realmObject.Event;
 import io.wumf.wumf.realmObject.EventType;
@@ -92,14 +93,13 @@ public class AppUtils {
         Event event = new Event();
         event.setTime(app.getInstallDate());
         event.setEventType(EventType.toInt(EventType.ADD));
+        event.setApp(app);
         return event;
     }
 
     private void addFirstAddedEvent(App app) {
         Event event = getFirstAddedEvent(app);
-        List<Event> events = new ArrayList<>();
-        events.add(event);
-        app.setEvents(events);
+        app.setEvents(new RealmList<Event>(event));
     }
 
 }

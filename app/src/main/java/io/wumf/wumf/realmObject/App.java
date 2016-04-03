@@ -1,7 +1,6 @@
 package io.wumf.wumf.realmObject;
 
-import java.util.List;
-
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -16,7 +15,7 @@ public class App extends RealmObject {
     private long installDate;
     private String iconPath;
     private String label;
-    private List<Event> events;
+    private RealmList<Event> events;
 
     public String getPackageName() {
         return packageName;
@@ -58,11 +57,11 @@ public class App extends RealmObject {
         this.label = label;
     }
 
-    public List<Event> getEvents() {
+    public RealmList<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(RealmList<Event> events) {
         this.events = events;
     }
 

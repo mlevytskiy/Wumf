@@ -83,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+//        final RealmResults<Event> realmResults = Realm.getDefaultInstance().where(Event.class).findAllAsync();
+//        realmResults.addChangeListener(new RealmChangeListener() {
+//            @Override
+//            public void onChange() {
+//                realmResults.removeChangeListener(this);
+//                Toast.makeText(MainActivity.this, "size=" + realmResults.size(), Toast.LENGTH_LONG).show();
+//            }
+//        });
+
     }
 
     void showToast(String msg) {
@@ -93,11 +102,8 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFrag(new TimelineFragment(), "timeline");
-//        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.background_floating_material_light)), "timeline");
         adapter.addFrag(new AllAppsFragment(), "all");
         adapter.addFrag(new NewAppsFragment(), "new");
-//        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_material_light)), "new");
-//        adapter.addFrag(new DummyFragment(getResources().getColor(R.color.accent_700)), "removed");
         adapter.addFrag(new RemovedAppsFragment(), "removed");
         viewPager.setAdapter(adapter);
     }

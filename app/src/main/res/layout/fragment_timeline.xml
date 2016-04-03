@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dummyfrag_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_material_light">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_view"
+    <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
+        android:id="@+id/realm_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:rrvIsRefreshable="false"
+        app:rrvEmptyLayoutId="@layout/empty_view"
+        app:rrvLayoutType="LinearLayout" />
 
 </RelativeLayout>
