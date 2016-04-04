@@ -1,82 +1,45 @@
 package io.wumf.wumf.adapter;
 
 import android.content.Context;
-import android.os.AsyncTask;
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import io.realm.Realm;
-import io.wumf.wumf.realmObject.App;
-import io.wumf.wumf.util.AppUtils;
-import io.wumf.wumf.util.getApps.GetAllApps;
-import io.wumf.wumf.viewHolder.TimelineViewHolder;
+import io.realm.RealmBasedRecyclerViewAdapter;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
+import io.wumf.wumf.realmObject.Event;
+import io.wumf.wumf.viewHolder.TimelineViewHolder2;
 
 /**
- * Created by max on 28.03.16.
+ * Created by max on 02.04.16.
  */
-public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> {
+public class TimelineAdapter extends RealmBasedRecyclerViewAdapter<Event, TimelineViewHolder2> {
 
-    private List<App> apps;
-
-    public TimelineAdapter(List<App> apps) {
-        this.apps = apps;
-        this.setHasStableIds(true);
+    public TimelineAdapter(Context context) {
+        this(context, Realm.getDefaultInstance().where(Event.class).findAll());
     }
 
-    public TimelineAdapter(final Context context) {
-        apps = new ArrayList<>();
-        this.setHasStableIds(true);
-        new AsyncTask<Void, Void, List<App>>() {
+    public TimelineAdapter(Context context, RealmResults<Event> realmResults) {
+        this(context, realmResults, true, false, null);
+    }
 
-            private List<App> appsFromDatabase;
-
-            protected void onPreExecute() {
-                appsFromDatabase = new GetAllApps().get();
-            }
-
+    public TimelineAdapter(Context context, RealmResults<Event> realmResults, boolean automaticUpdate, boolean animateResults, String animateExtraColumnName) {
+        super(context, realmResults, automaticUpdate, animateResults, animateExtraColumnName);
+        realmResults.addChangeListener(new RealmChangeListener() {
             @Override
-            protected List<App> doInBackground(Void... params) {
-                if (appsFromDatabase.isEmpty()) {
-                    return new AppUtils(context).loadAllAppsFromSystem();
-                } else {
-                    return appsFromDatabase;
-                }
-            }
-
-            protected void onPostExecute(List<App> apps) {
-                if (appsFromDatabase.isEmpty()) {
-                    Realm.getDefaultInstance().beginTransaction();
-                    Realm.getDefaultInstance().copyToRealmOrUpdate(apps);
-                    Realm.getDefaultInstance().commitTransaction();
-                } else {
-                    //do nothing
-                }
-                TimelineAdapter.this.apps.addAll(apps);
+            public void onChange() {
                 notifyDataSetChanged();
             }
-        }.execute();
+        });
     }
 
     @Override
-    public TimelineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new TimelineViewHolder(parent);
+    public TimelineViewHolder2 onCreateRealmViewHolder(ViewGroup viewGroup, int i) {
+        return new TimelineViewHolder2(viewGroup);
     }
 
     @Override
-    public void onBindViewHolder(TimelineViewHolder holder, int position) {
-        holder.bindApp(apps.get(position));
+    public void onBindRealmViewHolder(TimelineViewHolder2 timelineViewHolder2, int i) {
+        timelineViewHolder2.bind(realmResults.get(i));
     }
-
-    @Override
-    public int getItemCount() {
-        return apps.size();
-    }
-
-    public long getItemId(int position) {
-        return apps.get(position).hashCode();
-    }
-
 }

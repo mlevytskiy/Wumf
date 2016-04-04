@@ -20,6 +20,11 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:id="@+id/data"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>

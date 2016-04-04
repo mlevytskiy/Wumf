@@ -25,7 +25,7 @@ public class TimelineViewHolder2 extends RealmViewHolder {
     private TextView action;
 
     public TimelineViewHolder2(ViewGroup parent) {
-        super(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_timeline2, parent, false));
+        super(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_timeline, parent, false));
         label = (LabelTextView) itemView.findViewById(R.id.label);
         icon = (IconImageView) itemView.findViewById(R.id.icon);
         isRemovedTextView = (TextView) itemView.findViewById(R.id.is_removed);
