@@ -2,12 +2,11 @@ package io.wumf.wumf.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.wumf.wumf.R;
 import io.wumf.wumf.adapter.AllAppsAdapter;
 
@@ -19,13 +18,7 @@ public class AllAppsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_apps, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycle_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1) {
-            @Override
-            public boolean supportsPredictiveItemAnimations() {
-                return true;
-            }
-        });
+        RealmRecyclerView recyclerView = (RealmRecyclerView) view.findViewById(R.id.realm_recycler_view);
         recyclerView.setAdapter(new AllAppsAdapter(getContext()));
         return view;
     }

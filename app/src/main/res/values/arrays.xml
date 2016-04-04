@@ -30,4 +30,10 @@
 
     </string-array>
 
+    <string-array name="new_apps_date">
+        <item>day</item>
+        <item>week</item>
+        <item>month</item>
+    </string-array>
+
 </resources>
