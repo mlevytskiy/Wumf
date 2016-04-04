@@ -26,7 +26,7 @@ public class RemovedAppsFragment extends Fragment {
                 return true;
             }
         });
-        recyclerView.setAdapter(new RemovedAppsAdapter());
+        recyclerView.setAdapter(new RemovedAppsAdapter(getContext()));
         return view;
     }
 

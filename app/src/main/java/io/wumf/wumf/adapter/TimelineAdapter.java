@@ -8,12 +8,12 @@ import io.realm.RealmBasedRecyclerViewAdapter;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import io.wumf.wumf.realmObject.Event;
-import io.wumf.wumf.viewHolder.TimelineViewHolder2;
+import io.wumf.wumf.viewHolder.TimelineViewHolder;
 
 /**
  * Created by max on 02.04.16.
  */
-public class TimelineAdapter extends RealmBasedRecyclerViewAdapter<Event, TimelineViewHolder2> {
+public class TimelineAdapter extends RealmBasedRecyclerViewAdapter<Event, TimelineViewHolder> {
 
     public TimelineAdapter(Context context) {
         this(context, Realm.getDefaultInstance().where(Event.class).findAll());
@@ -34,12 +34,12 @@ public class TimelineAdapter extends RealmBasedRecyclerViewAdapter<Event, Timeli
     }
 
     @Override
-    public TimelineViewHolder2 onCreateRealmViewHolder(ViewGroup viewGroup, int i) {
-        return new TimelineViewHolder2(viewGroup);
+    public TimelineViewHolder onCreateRealmViewHolder(ViewGroup viewGroup, int i) {
+        return new TimelineViewHolder(viewGroup);
     }
 
     @Override
-    public void onBindRealmViewHolder(TimelineViewHolder2 timelineViewHolder2, int i) {
-        timelineViewHolder2.bind(realmResults.get(i));
+    public void onBindRealmViewHolder(TimelineViewHolder timelineViewHolder, int i) {
+        timelineViewHolder.bind(realmResults.get(i));
     }
 }

@@ -26,7 +26,7 @@ public class AllAppsFragment extends Fragment {
                 return true;
             }
         });
-        recyclerView.setAdapter(new AllAppsAdapter());
+        recyclerView.setAdapter(new AllAppsAdapter(getContext()));
         return view;
     }
 

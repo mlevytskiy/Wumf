@@ -30,7 +30,7 @@ public class NewAppsFragment extends Fragment {
         });
         Date date = new Date();
         date.setDate((date.getDate()-1));
-        recyclerView.setAdapter(new NewAppsAdapter(date.getTime()));
+        recyclerView.setAdapter(new NewAppsAdapter(getContext(), date.getTime()));
         return view;
     }
 
