@@ -9,7 +9,10 @@ import android.graphics.drawable.Drawable;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.realm.RealmList;
 import io.wumf.wumf.realmObject.App;
@@ -34,7 +37,11 @@ public class AppUtils {
     public List<App> loadAllAppsFromSystem() {
         PackageManager pm = context.getPackageManager();
         List<ResolveInfo> resolveInfos = getResolveInfos(pm);
-        return resolveInfoToApp(pm, resolveInfos);
+        List<App> apps = resolveInfoToApp(pm, resolveInfos);
+        sortByInstallDate(apps);
+        setInFirstGroupFlag(apps);
+        Collections.reverse(apps);
+        return apps;
     }
 
     public App loadAppFromSystem(String packageName) {
@@ -100,6 +107,36 @@ public class AppUtils {
     private void addFirstAddedEvent(App app) {
         Event event = getFirstAddedEvent(app);
         app.setEvents(new RealmList<Event>(event));
+    }
+
+    private void sortByInstallDate(List<App> apps) {
+        Collections.sort(apps, new Comparator<App>() {
+            @Override
+            public int compare(App lhs, App rhs) {
+                long lInstallDate = lhs.getInstallDate();
+                long rInstallDate = rhs.getInstallDate();
+                if (lInstallDate > rInstallDate) {
+                    return 1;
+                } else if (lInstallDate == rInstallDate) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        });
+    }
+
+    private void setInFirstGroupFlag(List<App> apps) {
+        for (int i = 1; i < apps.size(); i++) {
+            App app = apps.get(i);
+            App previousApp = apps.get(i - 1);
+            if (Math.abs(previousApp.getInstallDate() - app.getInstallDate()) < TimeUnit.MINUTES.toMillis(1)) {
+                app.setInFirstGroup(true);
+                previousApp.setInFirstGroup(true);
+            } else {
+                break;
+            }
+        }
     }
 
 }

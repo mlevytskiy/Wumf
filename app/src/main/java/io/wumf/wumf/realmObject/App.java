@@ -15,6 +15,7 @@ public class App extends RealmObject {
     private long installDate;
     private String iconPath;
     private String label;
+    private boolean inFirstGroup = false;
     private RealmList<Event> events;
 
     public String getPackageName() {
@@ -65,4 +66,11 @@ public class App extends RealmObject {
         this.events = events;
     }
 
+    public boolean isInFirstGroup() {
+        return inFirstGroup;
+    }
+
+    public void setInFirstGroup(boolean inFirstGroup) {
+        this.inFirstGroup = inFirstGroup;
+    }
 }
