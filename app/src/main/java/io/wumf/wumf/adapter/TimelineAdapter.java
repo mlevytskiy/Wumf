@@ -15,6 +15,10 @@ import io.wumf.wumf.viewHolder.TimelineViewHolder;
  */
 public class TimelineAdapter extends RealmBasedRecyclerViewAdapter<Event, TimelineViewHolder> {
 
+    private static final int VIEW_TYPE_NORMAL = 0;
+    private static final int VIEW_TYPE_MULTIPLE_CARDS = 1;
+    private static final int VIEW_TYPE_EMPTY = 3;
+
     public TimelineAdapter(Context context) {
         this(context, Realm.getDefaultInstance().where(Event.class).findAll());
     }
@@ -42,4 +46,10 @@ public class TimelineAdapter extends RealmBasedRecyclerViewAdapter<Event, Timeli
     public void onBindRealmViewHolder(TimelineViewHolder timelineViewHolder, int i) {
         timelineViewHolder.bind(realmResults.get(i));
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position % 2 * 2;
+    }
+
 }

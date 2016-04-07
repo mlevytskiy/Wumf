@@ -15,6 +15,10 @@ public class WumfApp extends Application {
 
     public void onCreate() {
         super.onCreate();
+        initRealm();
+    }
+
+    private void initRealm() {
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(this)
                 .name(REALM_DATABASE)
                 .schemaVersion(REALM_VERSION)

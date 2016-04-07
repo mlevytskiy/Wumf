@@ -1,0 +1,11 @@
+- share app apk and url
+- restore removed apps
+- show full list of apps
+- grid to list and reverse (UI)
+- remove app
+- remove system apps if we have ROOT
+- backup user data for applications (with ROOT)
+- move to sdcard if we can
+- avto move to sdcard
+- first screen with detect number
+- screen detail app with app timeline

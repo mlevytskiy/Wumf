@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.realm.RealmList;
+import io.wumf.wumf.pojo.BaseAppInfo;
 import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.realmObject.Event;
 import io.wumf.wumf.realmObject.EventType;
@@ -24,62 +25,76 @@ import io.wumf.wumf.realmObject.EventType;
  */
 public class AppUtils {
 
-    private Context context;
+    private PackageManager pm;
     private SaveIconUtils saveIconUtils;
     private FileGenerator fileGenerator;
 
     public AppUtils(Context context) {
-        this.context = context;
+        pm = context.getPackageManager();
         saveIconUtils = new SaveIconUtils(context);
         fileGenerator = new FileGenerator(context);
     }
 
     public List<App> loadAllAppsFromSystem() {
-        PackageManager pm = context.getPackageManager();
-        List<ResolveInfo> resolveInfos = getResolveInfos(pm);
-        List<App> apps = resolveInfoToApp(pm, resolveInfos);
+        List<ResolveInfo> resolveInfos = getResolveInfos();
+        List<App> apps = resolveInfoToApp(resolveInfos);
         sortByInstallDate(apps);
         setInFirstGroupFlag(apps);
         Collections.reverse(apps);
         return apps;
     }
 
+    public BaseAppInfo loadBaseAppInfoFromSystem(String packageName) {
+        return resolveInfoToBaseAppInfo(loadResolveInfo(packageName));
+    }
+
     public App loadAppFromSystem(String packageName) {
-        PackageManager pm = context.getPackageManager();
+        return resolveInfoToApp(loadResolveInfo(packageName));
+    }
+
+    private ResolveInfo loadResolveInfo(String packageName) {
         Intent intent = new Intent();
         intent.setPackage(packageName);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        ResolveInfo resolveInfo = pm.resolveActivity(intent, 0);
-        return resolveInfoToApp(pm, resolveInfo);
+        return pm.resolveActivity(intent, 0);
     }
 
-    private App resolveInfoToApp(PackageManager pm, ResolveInfo resolveInfo) {
+    private BaseAppInfo resolveInfoToBaseAppInfo(ResolveInfo resolveInfo) {
+        BaseAppInfo baseAppInfo = new BaseAppInfo();
+        baseAppInfo.setLauncherActivity(resolveInfo.activityInfo.name);
+        baseAppInfo.setInstallDate(getInstallDate(resolveInfo.activityInfo.packageName));
+        baseAppInfo.setPackageName(resolveInfo.activityInfo.packageName);
+        return baseAppInfo;
+    }
+
+    private App resolveInfoToApp(ResolveInfo resolveInfo) {
         App app = new App();
-        app.setInstallDate(getInstallDate(pm, resolveInfo.activityInfo.packageName));
+        app.setInstallDate(getInstallDate(resolveInfo.activityInfo.packageName));
         app.setLabel(((String) resolveInfo.loadLabel(pm)));
         app.setPackageName(resolveInfo.activityInfo.packageName);
+        app.setLauncherActivity(resolveInfo.activityInfo.name);
         app.setRemoved(false);
         app.setIconPath(loadAndSaveIconInFile(pm, resolveInfo));
         addFirstAddedEvent(app);
         return app;
     }
 
-    private List<App> resolveInfoToApp(PackageManager pm, List<ResolveInfo> list) {
+    private List<App> resolveInfoToApp(List<ResolveInfo> list) {
         List<App> result = new ArrayList<>();
         for (ResolveInfo resolveInfo : list) {
-            result.add(resolveInfoToApp(pm, resolveInfo));
+            result.add(resolveInfoToApp(resolveInfo));
         }
         return result;
     }
 
-    private List<ResolveInfo> getResolveInfos(PackageManager pm) {
+    private List<ResolveInfo> getResolveInfos() {
         final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         final List<android.content.pm.ResolveInfo> appList = pm.queryIntentActivities(mainIntent, PackageManager.GET_META_DATA);
         return appList;
     }
 
-    private long getInstallDate(PackageManager pm, String packageName) {
+    private long getInstallDate(String packageName) {
         try {
             PackageInfo packageInfo = pm.getPackageInfo(packageName, 0);
             return packageInfo.firstInstallTime;

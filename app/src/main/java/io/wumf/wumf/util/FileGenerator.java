@@ -17,8 +17,7 @@ public class FileGenerator {
     }
 
     public File generate(ResolveInfo resolveInfo) {
-//        return new File(context.getFilesDir(), resolveInfo.activityInfo.name);
-        return new File(context.getFilesDir(), resolveInfo.activityInfo.packageName);
+        return new File(context.getFilesDir(), resolveInfo.activityInfo.name);
     }
 
 }

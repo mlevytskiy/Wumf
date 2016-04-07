@@ -10,6 +10,7 @@ import io.realm.annotations.PrimaryKey;
 public class App extends RealmObject {
 
     @PrimaryKey
+    private String launcherActivity;
     private String packageName;
     private boolean isRemoved;
     private long installDate;
@@ -72,5 +73,13 @@ public class App extends RealmObject {
 
     public void setInFirstGroup(boolean inFirstGroup) {
         this.inFirstGroup = inFirstGroup;
+    }
+
+    public String getLauncherActivity() {
+        return launcherActivity;
+    }
+
+    public void setLauncherActivity(String launcherActivity) {
+        this.launcherActivity = launcherActivity;
     }
 }
