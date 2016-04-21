@@ -3,6 +3,7 @@ package io.wumf.wumf.asyncTask;
 import android.content.Context;
 import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,8 +34,14 @@ public abstract class LoadAllAppsAsyncTask extends AsyncTask<Void, Void, List<Ap
         Realm.getDefaultInstance().beginTransaction();
         Realm.getDefaultInstance().copyToRealmOrUpdate(apps);
         Realm.getDefaultInstance().commitTransaction();
-        dataIsReady();
         startLoadAdditionalInfo(apps, map, utils);
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                dataIsReady();
+            }
+        });
+
     }
 
     protected abstract void dataIsReady();
