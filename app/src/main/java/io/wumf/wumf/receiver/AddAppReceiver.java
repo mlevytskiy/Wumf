@@ -29,7 +29,7 @@ public class AddAppReceiver extends BroadcastReceiver {
             new AddAppAsyncTask(context).execute(packageName);
         } else {
             for (App app : apps) {
-                new UpdateAppAsyncTask(context).execute(app);
+                new UpdateAppAsyncTask(context, app).execute();
             }
         }
     }

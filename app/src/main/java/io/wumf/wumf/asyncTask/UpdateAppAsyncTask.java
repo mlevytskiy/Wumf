@@ -13,19 +13,21 @@ import io.wumf.wumf.util.AppUtils;
 /**
  * Created by max on 30.03.16.
  */
-public class UpdateAppAsyncTask extends AsyncTask<App, Void, BaseAppInfo> {
+public class UpdateAppAsyncTask extends AsyncTask<Void, Void, BaseAppInfo> {
 
     private final Context context;
     private App app;
+    private String packageName;
 
-    public UpdateAppAsyncTask(Context context) {
+    public UpdateAppAsyncTask(Context context, App app) {
         this.context = context;
+        this.app = app;
+        packageName = app.getPackageName();
     }
 
     @Override
-    protected BaseAppInfo doInBackground(App... params) {
-        this.app = params[0];
-        return new AppUtils(context).loadBaseAppInfoFromSystem(app.getPackageName());
+    protected BaseAppInfo doInBackground(Void... voids) {
+        return new AppUtils(context).loadBaseAppInfoFromSystem(packageName);
     }
 
     protected void onPostExecute(BaseAppInfo appInfo) {
