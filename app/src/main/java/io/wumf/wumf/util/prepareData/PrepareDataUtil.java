@@ -29,7 +29,7 @@ public class PrepareDataUtil {
         new LoadAllAppsAsyncTask(context) {
 
             @Override
-            protected void gotoMainActivity() {
+            protected void dataIsReady() {
                 callback.dataIsReady();
             }
 
