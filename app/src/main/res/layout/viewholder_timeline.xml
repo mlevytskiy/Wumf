@@ -5,16 +5,13 @@
               android:layout_height="wrap_content"
               android:orientation="horizontal"
               android:paddingLeft="8dp"
-              android:paddingRight="8dp"
-              android:descendantFocusability="blocksDescendants">
+              android:paddingRight="8dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center"
-        android:clickable="true"
-        android:focusable="true" >
+        android:gravity="center" >
 
         <com.pkmmte.view.CircularImageView
             android:id="@+id/app_event_type_image_view"
@@ -42,9 +39,8 @@
         android:orientation="vertical"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginTop="4dp"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false" >
+        android:clickable="true"
+        android:focusable="true" >
 
         <TextView
             android:id="@+id/action"
