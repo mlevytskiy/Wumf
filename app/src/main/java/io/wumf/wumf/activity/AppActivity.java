@@ -2,11 +2,12 @@ package io.wumf.wumf.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import io.realm.Realm;
 import io.wumf.wumf.R;
 import io.wumf.wumf.realmObject.App;
+import io.wumf.wumf.view.IconImageView;
+import io.wumf.wumf.view.LabelTextView;
 
 /**
  * Created by max on 11.04.16.
@@ -21,7 +22,10 @@ public class AppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_app);
         String appPrimaryKey = getIntent().getStringExtra(APP_ID);
         app = Realm.getDefaultInstance().where(App.class).equalTo("launcherActivity", appPrimaryKey).findFirst();
-        Toast.makeText(this, "app name=" + app.getLabel(), Toast.LENGTH_LONG).show();
+        IconImageView iconImageView = (IconImageView) findViewById(R.id.icon);
+        iconImageView.setApp(app);
+        LabelTextView labelTextView = (LabelTextView) findViewById(R.id.label);
+        labelTextView.setApp(app);
     }
 
 

@@ -10,8 +10,7 @@
         android:name=".application.WumfApp"
         android:theme="@style/MyTheme">
 
-        <activity android:name=".activity.TimelineActivity"
-                  android:noHistory="true" >
+        <activity android:name=".activity.TimelineActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
