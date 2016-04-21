@@ -1,12 +1,16 @@
 package io.wumf.wumf.viewHolder;
 
+import android.support.v7.widget.CardView;
 import android.text.format.Time;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import io.realm.RealmViewHolder;
 import io.wumf.wumf.R;
+import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.OnAppItemClickEvent;
 import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.realmObject.Event;
 import io.wumf.wumf.realmObject.EventType;
@@ -23,6 +27,7 @@ public class TimelineViewHolder extends RealmViewHolder {
     private TextView isRemovedTextView;
     private TextView data;
     private TextView action;
+    private CardView cardView;
 
     public TimelineViewHolder(ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_timeline, parent, false));
@@ -31,6 +36,14 @@ public class TimelineViewHolder extends RealmViewHolder {
         isRemovedTextView = (TextView) itemView.findViewById(R.id.is_removed);
         data = (TextView) itemView.findViewById(R.id.data);
         action = (TextView) itemView.findViewById(R.id.action);
+        cardView = (CardView) itemView.findViewById(R.id.card_view);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String appId = (String) v.getTag();
+                BusProvider.getInstance().post(new OnAppItemClickEvent(appId));
+            }
+        });
     }
 
     public void bind(Event event) {
@@ -46,6 +59,7 @@ public class TimelineViewHolder extends RealmViewHolder {
         Time time = new Time();
         time.set(app.getInstallDate());
         data.setText(time.format("%d.%m.%Y %H:%M:%S"));
+        cardView.setTag(app.getLauncherActivity());
     }
 
 }

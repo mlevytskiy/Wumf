@@ -1,5 +1,6 @@
 package io.wumf.wumf.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -10,12 +11,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
+import com.squareup.otto.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import io.wumf.wumf.R;
 import io.wumf.wumf.activity.common.PrepareDataActivity;
 import io.wumf.wumf.fragment.TimelineFragment;
+import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.OnAppItemClickEvent;
 
 public class TimelineActivity extends PrepareDataActivity {
 
@@ -114,6 +119,21 @@ public class TimelineActivity extends PrepareDataActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Subscribe
+    public void onItemClickEvent(OnAppItemClickEvent event) {
+        startActivity(new Intent(this, AppActivity.class).putExtra(AppActivity.APP_ID, event.appId));
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override public void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
     }
 
 }
