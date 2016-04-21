@@ -1,10 +1,10 @@
 package io.wumf.wumf.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import io.realm.Realm;
 import io.wumf.wumf.R;
+import io.wumf.wumf.activity.common.AnimationActivity;
 import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.view.IconImageView;
 import io.wumf.wumf.view.LabelTextView;
@@ -12,7 +12,7 @@ import io.wumf.wumf.view.LabelTextView;
 /**
  * Created by max on 11.04.16.
  */
-public class AppActivity extends AppCompatActivity {
+public class AppActivity extends AnimationActivity {
 
     public static final String APP_ID = "appPrimaryKey";
     private App app = null;
@@ -27,6 +27,5 @@ public class AppActivity extends AppCompatActivity {
         LabelTextView labelTextView = (LabelTextView) findViewById(R.id.label);
         labelTextView.setApp(app);
     }
-
 
 }
