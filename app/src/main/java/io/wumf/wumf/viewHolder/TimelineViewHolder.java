@@ -34,7 +34,8 @@ public class TimelineViewHolder extends RealmViewHolder {
     }
 
     public void bind(Event event) {
-        action.setText(EventType.fromInt(event.getEventType()).toString());
+        EventType eventType = EventType.fromInt(event.getEventType());
+        action.setText(eventType.toString());
         bind(event.getApp());
     }
 

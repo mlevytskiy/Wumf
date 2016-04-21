@@ -10,7 +10,7 @@
         android:name=".application.WumfApp"
         android:theme="@style/MyTheme">
 
-        <activity android:name=".activity.SplashScreenActivity"
+        <activity android:name=".activity.TimelineActivity"
                   android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.AppActivity" />
 
         <receiver android:name=".receiver.AddAppReceiver"
                   android:exported="true"

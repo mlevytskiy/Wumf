@@ -11,7 +11,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.realm.RealmList;
@@ -35,13 +37,39 @@ public class AppUtils {
         fileGenerator = new FileGenerator(context);
     }
 
-    public List<App> loadAllAppsFromSystem() {
+    public List<App> loadAllAppsFromSystem(HashMap<App, ResolveInfo> map) {
         List<ResolveInfo> resolveInfos = getResolveInfos();
         List<App> apps = resolveInfoToApp(resolveInfos);
+        for (int i = 0; i < apps.size(); i++) {
+            map.put(apps.get(i), resolveInfos.get(i));
+        }
         sortByInstallDate(apps);
         setInFirstGroupFlag(apps);
         Collections.reverse(apps);
+        addLabelAndIcon(apps, map, 10);
         return apps;
+    }
+
+    public List<App> loadNext(List<App> apps, HashMap<App, ResolveInfo> map, int startAppIndex, int step) {
+        List<App> result = new ArrayList<>();
+        int end = Math.min(startAppIndex + step, apps.size());
+        for (int i = startAppIndex; i < end; i++) {
+            result.add(apps.get(i));
+        }
+        addLabelAndIcon(result, map, step+1);
+        return result;
+    }
+
+    private void addLabelAndIcon(List<App> apps, Map<App, ResolveInfo> map, int firstElementsCount) {
+        int index = 0;
+        for (App app : apps) {
+            index++;
+            app.setLabel(((String) map.get(app).loadLabel(pm)));
+            app.setIconPath(loadAndSaveIconInFile(pm, map.get(app)));
+            if (index == firstElementsCount) {
+                return;
+            }
+        }
     }
 
     public BaseAppInfo loadBaseAppInfoFromSystem(String packageName) {
@@ -49,7 +77,14 @@ public class AppUtils {
     }
 
     public App loadAppFromSystem(String packageName) {
-        return resolveInfoToApp(loadResolveInfo(packageName));
+        ResolveInfo resolveInfo = loadResolveInfo(packageName);
+        App app = resolveInfoToApp(resolveInfo);
+        List<App> apps = new ArrayList<>();
+        apps.add(app);
+        Map<App, ResolveInfo> map = new HashMap<App, ResolveInfo>();
+        map.put(app, resolveInfo);
+        addLabelAndIcon(apps, map, 1);
+        return app;
     }
 
     private ResolveInfo loadResolveInfo(String packageName) {
@@ -70,11 +105,9 @@ public class AppUtils {
     private App resolveInfoToApp(ResolveInfo resolveInfo) {
         App app = new App();
         app.setInstallDate(getInstallDate(resolveInfo.activityInfo.packageName));
-        app.setLabel(((String) resolveInfo.loadLabel(pm)));
         app.setPackageName(resolveInfo.activityInfo.packageName);
         app.setLauncherActivity(resolveInfo.activityInfo.name);
         app.setRemoved(false);
-        app.setIconPath(loadAndSaveIconInFile(pm, resolveInfo));
         addFirstAddedEvent(app);
         return app;
     }
@@ -116,6 +149,7 @@ public class AppUtils {
         event.setTime(app.getInstallDate());
         event.setEventType(EventType.toInt(EventType.ADD));
         event.setApp(app);
+        event.setTimeAndAppPrimaryKey(app.getLauncherActivity() + app.getInstallDate());
         return event;
     }
 

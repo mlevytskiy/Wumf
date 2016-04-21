@@ -8,27 +8,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.wumf.wumf.R;
-import io.wumf.wumf.fragment.AllAppsFragment;
-import io.wumf.wumf.fragment.NewAppsFragment;
-import io.wumf.wumf.fragment.RemovedAppsFragment;
+import io.wumf.wumf.activity.common.PrepareDataActivity;
 import io.wumf.wumf.fragment.TimelineFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class TimelineActivity extends PrepareDataActivity {
 
     private AppBarLayout appBarLayout;
     private TabLayout tabLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreateAfterDataPreparation(Bundle savedInstanceState) {
         setContentView(R.layout.activity_tab_animation);
 
         appBarLayout = (AppBarLayout) findViewById(R.id.tabanim_appbar);
@@ -83,28 +78,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        final RealmResults<Event> realmResults = Realm.getDefaultInstance().where(Event.class).findAllAsync();
-//        realmResults.addChangeListener(new RealmChangeListener() {
-//            @Override
-//            public void onChange() {
-//                realmResults.removeChangeListener(this);
-//                Toast.makeText(MainActivity.this, "size=" + realmResults.size(), Toast.LENGTH_LONG).show();
-//            }
-//        });
-
-    }
-
-    void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFrag(new TimelineFragment(), "timeline");
-        adapter.addFrag(new AllAppsFragment(), "all");
-        adapter.addFrag(new NewAppsFragment(), "new");
-        adapter.addFrag(new RemovedAppsFragment(), "removed");
         viewPager.setAdapter(adapter);
     }
 

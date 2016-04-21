@@ -2,6 +2,7 @@ package io.wumf.wumf.view;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -27,7 +28,11 @@ public class IconImageView extends ImageView {
     }
 
     public void setApp(App app) {
-        setImageURI(Uri.fromFile(new File(app.getIconPath())));
+        if (TextUtils.isEmpty(app.getIconPath())) {
+            setImageDrawable(null);
+        } else {
+            setImageURI(Uri.fromFile(new File(app.getIconPath())));
+        }
     }
 
 }

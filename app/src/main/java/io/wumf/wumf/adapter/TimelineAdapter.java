@@ -7,6 +7,7 @@ import io.realm.Realm;
 import io.realm.RealmBasedRecyclerViewAdapter;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import io.wumf.wumf.realmObject.Event;
 import io.wumf.wumf.viewHolder.TimelineViewHolder;
 
@@ -15,19 +16,15 @@ import io.wumf.wumf.viewHolder.TimelineViewHolder;
  */
 public class TimelineAdapter extends RealmBasedRecyclerViewAdapter<Event, TimelineViewHolder> {
 
-    private static final int VIEW_TYPE_NORMAL = 0;
-    private static final int VIEW_TYPE_MULTIPLE_CARDS = 1;
-    private static final int VIEW_TYPE_EMPTY = 3;
-
     public TimelineAdapter(Context context) {
-        this(context, Realm.getDefaultInstance().where(Event.class).findAll());
+        this(context, Realm.getDefaultInstance().where(Event.class).findAllSortedAsync("time", Sort.DESCENDING));
     }
 
     public TimelineAdapter(Context context, RealmResults<Event> realmResults) {
         this(context, realmResults, true, false, null);
     }
 
-    public TimelineAdapter(Context context, RealmResults<Event> realmResults, boolean automaticUpdate, boolean animateResults, String animateExtraColumnName) {
+    public TimelineAdapter(Context context, final RealmResults<Event> realmResults, boolean automaticUpdate, boolean animateResults, String animateExtraColumnName) {
         super(context, realmResults, automaticUpdate, animateResults, animateExtraColumnName);
         realmResults.addChangeListener(new RealmChangeListener() {
             @Override
@@ -45,11 +42,6 @@ public class TimelineAdapter extends RealmBasedRecyclerViewAdapter<Event, Timeli
     @Override
     public void onBindRealmViewHolder(TimelineViewHolder timelineViewHolder, int i) {
         timelineViewHolder.bind(realmResults.get(i));
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position % 2 * 2;
     }
 
 }

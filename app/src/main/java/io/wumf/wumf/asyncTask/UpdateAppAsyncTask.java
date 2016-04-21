@@ -41,6 +41,7 @@ public class UpdateAppAsyncTask extends AsyncTask<App, Void, BaseAppInfo> {
             event.setApp(app);
             event.setTime(appInfo.getInstallDate());
             event.setEventType(EventType.toInt(EventType.UPDATE));
+            event.setTimeAndAppPrimaryKey(app.getLauncherActivity() + app.getInstallDate());
             app.getEvents().add(event);
             realm.copyToRealmOrUpdate(app);
             realm.commitTransaction();
