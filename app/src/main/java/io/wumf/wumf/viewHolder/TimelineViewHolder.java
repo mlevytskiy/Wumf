@@ -5,6 +5,7 @@ import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import io.realm.RealmViewHolder;
@@ -28,6 +29,7 @@ public class TimelineViewHolder extends RealmViewHolder {
     private TextView data;
     private TextView action;
     private CardView cardView;
+    private ImageView eventTypeImageView;
 
     public TimelineViewHolder(ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_timeline, parent, false));
@@ -36,6 +38,7 @@ public class TimelineViewHolder extends RealmViewHolder {
         isRemovedTextView = (TextView) itemView.findViewById(R.id.is_removed);
         data = (TextView) itemView.findViewById(R.id.data);
         action = (TextView) itemView.findViewById(R.id.action);
+        eventTypeImageView = (ImageView) itemView.findViewById(R.id.app_event_type_image_view);
         cardView = (CardView) itemView.findViewById(R.id.card_view);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +52,13 @@ public class TimelineViewHolder extends RealmViewHolder {
     public void bind(Event event) {
         EventType eventType = EventType.fromInt(event.getEventType());
         action.setText(eventType.toString());
+
+        if (eventType == EventType.ADD) {
+            eventTypeImageView.setImageResource(R.drawable.ic_add);
+        } else if (eventType == EventType.REMOVE) {
+            eventTypeImageView.setImageResource(R.drawable.ic_remove);
+        }
+
         bind(event.getApp());
     }
 
