@@ -57,6 +57,8 @@ public class TimelineViewHolder extends RealmViewHolder {
             eventTypeImageView.setImageResource(R.drawable.ic_add);
         } else if (eventType == EventType.REMOVE) {
             eventTypeImageView.setImageResource(R.drawable.ic_remove);
+        } else if (eventType == EventType.UPDATE) {
+            eventTypeImageView.setImageResource(R.drawable.ic_update);
         }
 
         bind(event.getApp());

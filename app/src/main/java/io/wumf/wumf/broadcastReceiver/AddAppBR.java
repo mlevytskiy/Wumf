@@ -2,6 +2,7 @@ package io.wumf.wumf.broadcastReceiver;
 
 import android.content.Context;
 
+import io.realm.Realm;
 import io.realm.RealmResults;
 import io.wumf.wumf.asyncTask.AddAppAsyncTask;
 import io.wumf.wumf.asyncTask.UpdateAppAsyncTask;
@@ -15,7 +16,7 @@ import io.wumf.wumf.realmObject.App;
 public class AddAppBR extends AppBroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, String packageName, RealmResults<App> apps) {
+    public void onReceive(Context context, String packageName, RealmResults<App> apps, Realm realm) {
         if (apps.isEmpty()) {
             new AddAppAsyncTask(context).execute(packageName);
         } else {

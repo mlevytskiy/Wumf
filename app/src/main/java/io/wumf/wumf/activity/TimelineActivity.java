@@ -136,4 +136,8 @@ public class TimelineActivity extends PrepareDataActivity {
         BusProvider.getInstance().unregister(this);
     }
 
+    public void finish() {
+        finishWithoutAnimation();
+    }
+
 }
