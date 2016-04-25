@@ -10,7 +10,7 @@ import io.wumf.wumf.util.prepareData.PrepareDataUtil;
  * Created by max on 15.04.16.
  * //prepare data before show items
  */
-public abstract class PrepareDataActivity extends AnimationActivity {
+public abstract class PrepareDataActivity extends AppCompatActivity {
 
     @Override
     protected final void onCreate(final Bundle savedInstanceState) {

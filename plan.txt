@@ -9,3 +9,11 @@
 - avto move to sdcard
 - first screen with detect number
 - screen detail app with app timeline
+
+side menu:
+- basic
+- social
+- share app
+- lock app
+- backup
+- hidden apps

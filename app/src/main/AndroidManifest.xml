@@ -32,24 +32,13 @@
 
         </receiver>
 
-        <receiver android:name=".broadcastReceiver.RemoveAppBR"
+        <receiver android:name=".broadcastReceiver.RemoveAndUpdateAppBR"
                   android:exported="true"
                   android:enabled="true" >
 
             <intent-filter
                 android:priority="999">
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
-                <data android:scheme="package" />
-            </intent-filter>
-
-        </receiver>
-
-        <receiver android:name=".broadcastReceiver.UpdateAppBR"
-                  android:exported="true"
-                  android:enabled="true" >
-
-            <intent-filter
-                android:priority="999">
                 <action android:name="android.intent.action.ACTION_PACKAGE_REPLACED" />
                 <data android:scheme="package" />
             </intent-filter>

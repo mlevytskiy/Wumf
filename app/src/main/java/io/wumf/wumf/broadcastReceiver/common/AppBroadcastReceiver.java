@@ -25,10 +25,10 @@ public abstract class AppBroadcastReceiver extends BroadcastReceiver {
             return;
         }
         RealmResults<App> apps = realm.where(App.class).equalTo("packageName", packageName).findAll();
-        onReceive(context, packageName, apps, realm);
+        onReceive(context, packageName, apps, realm, intent);
     }
 
-    public abstract void onReceive(Context context, String packageName, RealmResults<App> apps, Realm realm);
+    public abstract void onReceive(Context context, String packageName, RealmResults<App> apps, Realm realm, Intent intent);
 
     protected final Event addSimpleEvent(App app, Realm realm, EventType eventType) {
         long currentTime = System.currentTimeMillis();
