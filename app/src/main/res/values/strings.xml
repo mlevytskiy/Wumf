@@ -25,4 +25,6 @@
     <string name="title_activity_tabs_header">Header Tabs</string>
     <string name="title_activity_pager">PagerActivity</string>
     <string name="section_format">Page %1$d</string>
+    <string name="navigation_drawer_open">Open drawer</string>
+    <string name="navigation_drawer_close">Close drawer</string>
 </resources>
