@@ -20,7 +20,4 @@ public class AnimationActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.activity_open_scale,R.anim.activity_close_translate);
     }
 
-    public void finishWithoutAnimation() {
-        super.finish();
-    }
 }
