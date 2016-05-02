@@ -13,6 +13,7 @@
         app:rrvIsRefreshable="false"
         app:rrvEmptyLayoutId="@layout/empty_view"
         app:rrvLayoutType="Grid"
-        app:rrvGridLayoutSpanCount="3" />
+        app:rrvGridLayoutSpanCount="3"
+        android:layout_margin="2dp" />
 
 </RelativeLayout>

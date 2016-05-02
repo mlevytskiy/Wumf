@@ -5,7 +5,7 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
+    android:layout_margin="2dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -14,11 +14,11 @@
     android:paddingRight="8dp">
 
     <LinearLayout
-        android:layout_width="60dp"
-        android:layout_height="150dp"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="center|top"
         android:orientation="vertical"
-        android:paddingLeft="8dp">
+        android:paddingTop="8dp">
 
         <io.wumf.wumf.view.IconImageView
             android:id="@+id/icon"
@@ -29,7 +29,8 @@
             android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"/>
+            android:gravity="center"
+            android:maxLines="2" />
 
     </LinearLayout>
 
