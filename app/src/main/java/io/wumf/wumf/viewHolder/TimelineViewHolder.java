@@ -2,13 +2,11 @@ package io.wumf.wumf.viewHolder;
 
 import android.support.v7.widget.CardView;
 import android.text.format.Time;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import io.realm.RealmViewHolder;
 import io.wumf.wumf.R;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.OnAppItemClickEvent;
@@ -21,7 +19,7 @@ import io.wumf.wumf.view.LabelTextView;
 /**
  * Created by max on 02.04.16.
  */
-public class TimelineViewHolder extends RealmViewHolder {
+public class TimelineViewHolder extends AnyRealmViewHolder<Event> {
 
     private IconImageView icon;
     private LabelTextView label;
@@ -32,7 +30,7 @@ public class TimelineViewHolder extends RealmViewHolder {
     private ImageView eventTypeImageView;
 
     public TimelineViewHolder(ViewGroup parent) {
-        super(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_timeline, parent, false));
+        super(parent, R.layout.viewholder_timeline);
         label = (LabelTextView) itemView.findViewById(R.id.label);
         icon = (IconImageView) itemView.findViewById(R.id.icon);
         isRemovedTextView = (TextView) itemView.findViewById(R.id.is_removed);
