@@ -44,8 +44,8 @@ public class MainActivity extends PrepareDataActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        appBarLayout.setBackgroundColor(getResources().getColor(R.color.background_floating_material_light));
-        tabLayout.setTabTextColors(Color.BLACK, Color.BLACK);
+        appBarLayout.setBackgroundColor(getResources().getColor(R.color.primary_700));
+        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -55,12 +55,12 @@ public class MainActivity extends PrepareDataActivity {
 
                 switch (tab.getPosition()) {
                     case 0:
-                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.background_floating_material_light));
-                        tabLayout.setTabTextColors(Color.BLACK, Color.BLACK);
-                        break;
-                    case 1:
                         appBarLayout.setBackgroundColor(getResources().getColor(R.color.primary_700));
                         tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
+                        break;
+                    case 1:
+                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.background_floating_material_light));
+                        tabLayout.setTabTextColors(Color.BLACK, Color.BLACK);
                         break;
                     case 2:
                         appBarLayout.setBackgroundColor(getResources().getColor(R.color.accent_material_light));
