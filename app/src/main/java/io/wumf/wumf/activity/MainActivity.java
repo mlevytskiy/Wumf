@@ -22,7 +22,7 @@ import io.wumf.wumf.fragment.TimelineFragment;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.OnAppItemClickEvent;
 
-public class TimelineActivity extends PrepareDataActivity {
+public class MainActivity extends PrepareDataActivity {
 
     private AppBarLayout appBarLayout;
     private TabLayout tabLayout;
