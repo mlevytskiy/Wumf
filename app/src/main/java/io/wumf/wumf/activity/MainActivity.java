@@ -18,6 +18,7 @@ import java.util.List;
 
 import io.wumf.wumf.R;
 import io.wumf.wumf.activity.common.PrepareDataActivity;
+import io.wumf.wumf.fragment.AppListFragment;
 import io.wumf.wumf.fragment.TimelineFragment;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.OnAppItemClickEvent;
@@ -87,7 +88,7 @@ public class MainActivity extends PrepareDataActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
+        adapter.addFrag(new AppListFragment(), "apps");
         adapter.addFrag(new TimelineFragment(), "timeline");
         viewPager.setAdapter(adapter);
     }
