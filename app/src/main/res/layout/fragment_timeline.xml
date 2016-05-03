@@ -4,7 +4,7 @@
     android:id="@+id/dummyfrag_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f7fa" >
+    android:background="@color/light_gray" >
 
     <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
         android:id="@+id/realm_recycler_view"

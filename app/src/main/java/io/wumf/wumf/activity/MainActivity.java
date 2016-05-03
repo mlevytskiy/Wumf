@@ -72,7 +72,7 @@ public class MainActivity extends PrepareDataActivity implements NavigationView.
                         tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
                         break;
                     case 1:
-                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.background_floating_material_light));
+                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.light_gray));
                         tabLayout.setTabTextColors(Color.BLACK, Color.BLACK);
                         break;
                     case 2:
