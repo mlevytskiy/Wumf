@@ -9,11 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.squareup.otto.Subscribe;
 
@@ -138,28 +134,5 @@ public class MainActivity extends PrepareDataActivity {
     @Override public void onPause() {
         super.onPause();
         BusProvider.getInstance().unregister(this);
-    }
-
-
-    private static class AppDrawerToggle extends ActionBarDrawerToggle {
-        private final AppCompatActivity mActivity;
-
-        public AppDrawerToggle(AppCompatActivity mainActivity, DrawerLayout drawerLayout,
-                               int navigation_drawer_open, int navigation_drawer_close) {
-            super(mainActivity, drawerLayout, navigation_drawer_open, navigation_drawer_close);
-            mActivity = mainActivity;
-        }
-
-        @Override
-        public void onDrawerClosed(View drawerView) {
-            super.onDrawerClosed(drawerView);
-            mActivity.supportInvalidateOptionsMenu();
-        }
-
-        @Override
-        public void onDrawerOpened(View drawerView) {
-            super.onDrawerOpened(drawerView);
-            mActivity.supportInvalidateOptionsMenu();
-        }
     }
 }
