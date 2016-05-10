@@ -14,7 +14,7 @@ import io.wumf.wumf.viewHolder.AppViewHolder;
 public class AppListAdapter extends AnyRealmAdapter<App, AppViewHolder> {
 
     public AppListAdapter(Context context) {
-        super(context, Realm.getDefaultInstance().where(App.class).findAllSortedAsync("installDate", Sort.DESCENDING));
+        super(context, Realm.getDefaultInstance().where(App.class).findAllSorted("installDate", Sort.DESCENDING));
     }
 
     @Override

@@ -14,7 +14,7 @@ import io.wumf.wumf.viewHolder.TimelineViewHolder;
 public class TimelineAdapter extends AnyRealmAdapter<Event, TimelineViewHolder> {
 
     public TimelineAdapter(Context context) {
-        super(context, Realm.getDefaultInstance().where(Event.class).findAllSortedAsync("time", Sort.DESCENDING));
+        super(context, Realm.getDefaultInstance().where(Event.class).findAllSorted("time", Sort.DESCENDING));
     }
 
     @Override
