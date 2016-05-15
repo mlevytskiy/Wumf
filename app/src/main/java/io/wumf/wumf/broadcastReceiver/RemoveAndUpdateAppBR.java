@@ -39,6 +39,7 @@ public class RemoveAndUpdateAppBR extends AppBroadcastReceiver {
 
     private void addRemoveAppEvent(App app, Realm realm) {
         addSimpleEvent(app, realm, EventType.REMOVE);
+        app.setRemoved(true);
     }
 
     private void addUpdateAppEvent(App app, Realm realm) {

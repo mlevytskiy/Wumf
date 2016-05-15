@@ -73,11 +73,11 @@
                 android:layout_weight="1" />
 
             <ImageButton
-                android:id="@+id/uninstall"
+                android:id="@+id/google_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_uninstall"
+                android:src="@drawable/ic_google_play"
                 android:background="@android:color/transparent" />
 
             <View

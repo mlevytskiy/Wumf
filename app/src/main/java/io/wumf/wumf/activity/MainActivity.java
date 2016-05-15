@@ -21,7 +21,10 @@ import io.wumf.wumf.activity.common.PrepareDataActivity;
 import io.wumf.wumf.fragment.PhoneInfoFragment;
 import io.wumf.wumf.fragment.TabFragment;
 import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.OnAppClickUninstallEvent;
 import io.wumf.wumf.otto.event.OnAppItemClickEvent;
+import io.wumf.wumf.otto.event.OpenPageOnGooglePlayEvent;
+import io.wumf.wumf.util.IntentApi;
 
 public class MainActivity extends PrepareDataActivity {
 
@@ -127,6 +130,16 @@ public class MainActivity extends PrepareDataActivity {
     @Subscribe
     public void onItemClickEvent(OnAppItemClickEvent event) {
         startActivity(new Intent(this, AppActivity.class).putExtra(AppActivity.APP_ID, event.appId));
+    }
+
+    @Subscribe
+    public void onAppClickUninstall(OnAppClickUninstallEvent event) {
+        startActivity(IntentApi.uninstall(event.packageName));
+    }
+
+    @Subscribe
+    public void onOpenPageOnGooglePlay(OpenPageOnGooglePlayEvent event) {
+        startActivity(IntentApi.openGooglePlayPage(event.packageName));
     }
 
     @Override public void onResume() {
