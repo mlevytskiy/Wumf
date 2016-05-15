@@ -18,8 +18,8 @@ import java.util.List;
 
 import io.wumf.wumf.R;
 import io.wumf.wumf.activity.common.PrepareDataActivity;
-import io.wumf.wumf.fragment.AppListFragment;
-import io.wumf.wumf.fragment.TimelineFragment;
+import io.wumf.wumf.fragment.PhoneInfoFragment;
+import io.wumf.wumf.fragment.TabFragment;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.OnAppItemClickEvent;
 
@@ -39,6 +39,7 @@ public class MainActivity extends PrepareDataActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.tabanim_viewpager);
+        viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
@@ -87,8 +88,10 @@ public class MainActivity extends PrepareDataActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new AppListFragment(), "apps");
-        adapter.addFrag(new TimelineFragment(), "timeline");
+        adapter.addFrag(new TabFragment(), "apps");
+        adapter.addFrag(new PhoneInfoFragment(), "phone");
+        adapter.addFrag(new TabFragment(), "friends");
+//        adapter.addFrag(new TimelineFragment(), "timeline");
         viewPager.setAdapter(adapter);
     }
 
