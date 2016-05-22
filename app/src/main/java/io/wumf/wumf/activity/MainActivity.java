@@ -25,7 +25,6 @@ import io.wumf.wumf.otto.event.OnAppClickUninstallEvent;
 import io.wumf.wumf.otto.event.OnAppItemClickEvent;
 import io.wumf.wumf.otto.event.OpenPageOnGooglePlayEvent;
 import io.wumf.wumf.util.IntentApi;
-import io.wumf.wumf.view.CustomViewPager;
 
 public class MainActivity extends PrepareDataActivity {
 
@@ -42,10 +41,9 @@ public class MainActivity extends PrepareDataActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        final CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.tabanim_viewpager);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.tabanim_viewpager);
         viewPager.setOffscreenPageLimit(3);
         setupViewPager(viewPager);
-        viewPager.setPagingEnabled(false);
 
         tabLayout = (TabLayout) findViewById(R.id.tabanim_tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -96,7 +94,6 @@ public class MainActivity extends PrepareDataActivity {
         adapter.addFrag(new TabFragment(), "apps");
         adapter.addFrag(new PhoneInfoFragment(), "phone");
         adapter.addFrag(new TabFragment(), "friends");
-        adapter.addFrag(new PhoneInfoFragment(), "...");
 //        adapter.addFrag(new TimelineFragment(), "timeline");
         viewPager.setAdapter(adapter);
     }

@@ -18,6 +18,7 @@ public class App extends RealmObject {
     private String label;
     private boolean inFirstGroup = false;
     private RealmList<Event> events;
+    private String apkFilePath;
 
     public String getPackageName() {
         return packageName;
@@ -81,5 +82,13 @@ public class App extends RealmObject {
 
     public void setLauncherActivity(String launcherActivity) {
         this.launcherActivity = launcherActivity;
+    }
+
+    public String getApkFilePath() {
+        return apkFilePath;
+    }
+
+    public void setApkFilePath(String apkFilePath) {
+        this.apkFilePath = apkFilePath;
     }
 }

@@ -2,6 +2,7 @@ package io.wumf.wumf.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -79,6 +80,7 @@ public class AppUtils {
     public App loadAppFromSystem(String packageName) {
         ResolveInfo resolveInfo = loadResolveInfo(packageName);
         App app = resolveInfoToApp(resolveInfo);
+        loadInfoFromAppInfo(app);
         List<App> apps = new ArrayList<>();
         apps.add(app);
         Map<App, ResolveInfo> map = new HashMap<App, ResolveInfo>();
@@ -109,6 +111,20 @@ public class AppUtils {
         app.setLauncherActivity(resolveInfo.activityInfo.name);
         app.setRemoved(false);
         addFirstAddedEvent(app);
+        return app;
+    }
+
+    private void loadInfoFromAppInfo(App app) {
+        try {
+            ApplicationInfo applicationInfo = pm.getApplicationInfo(app.getPackageName(), 0);
+            loadInfoFromApplicationInfo(applicationInfo, app);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private App loadInfoFromApplicationInfo(ApplicationInfo applicationInfo, App app) {
+        app.setApkFilePath(applicationInfo.publicSourceDir);
         return app;
     }
 
