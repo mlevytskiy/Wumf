@@ -40,8 +40,8 @@ public class TabFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFrag(new AppListFragment(), "all");
         adapter.addFrag(new RemovedAppListFragment(), "removed");
-        adapter.addFrag(new PhoneInfoFragment(), "share apk");
-        adapter.addFrag(new PhoneInfoFragment(), "phone2sdcard");
+//        adapter.addFrag(new PhoneInfoFragment(), "share apk");
+//        adapter.addFrag(new PhoneInfoFragment(), "phone2sdcard");
         adapter.addFrag(new TimelineFragment(), "timeline");
         adapter.addFrag(new PhoneInfoFragment(), "...");
 //        adapter.addFrag(new TimelineFragment(), "timeline");

@@ -51,42 +51,42 @@ public class MainActivity extends PrepareDataActivity {
         appBarLayout.setBackgroundColor(getResources().getColor(R.color.primary_700));
         tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                viewPager.setCurrentItem(tab.getPosition());
-
-                switch (tab.getPosition()) {
-                    case 0:
-                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.primary_700));
-                        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
-                        break;
-                    case 1:
-                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.light_gray));
-                        tabLayout.setTabTextColors(Color.BLACK, Color.BLACK);
-                        break;
-                    case 2:
-                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.accent_material_light));
-                        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
-                        break;
-                    case 3:
-                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.accent_700));
-                        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//                viewPager.setCurrentItem(tab.getPosition());
+//
+//                switch (tab.getPosition()) {
+//                    case 0:
+//                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.primary_700));
+//                        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
+//                        break;
+//                    case 1:
+//                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.light_gray));
+//                        tabLayout.setTabTextColors(Color.BLACK, Color.BLACK);
+//                        break;
+//                    case 2:
+//                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.accent_material_light));
+//                        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
+//                        break;
+//                    case 3:
+//                        appBarLayout.setBackgroundColor(getResources().getColor(R.color.accent_700));
+//                        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
     }
 
     private void setupViewPager(ViewPager viewPager) {
