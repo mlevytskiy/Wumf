@@ -8,6 +8,8 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.wumf.wumf.friends.Friend;
+import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.LoadContactsFinishedEvent;
 
 /**
  * Created by max on 30.03.16.
@@ -39,5 +41,7 @@ public class WumfApp extends Application {
 
     public void setFriends(List<Friend> friends) {
         this.friends = friends;
+        BusProvider.getInstance().post(new LoadContactsFinishedEvent());
     }
+
 }
