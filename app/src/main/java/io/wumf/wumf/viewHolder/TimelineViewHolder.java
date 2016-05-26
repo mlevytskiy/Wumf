@@ -65,7 +65,6 @@ public class TimelineViewHolder extends AnyRealmViewHolder<Event> {
     private void bind(App app) {
         icon.setApp(app);
         label.setApp(app);
-        isRemovedTextView.setText(app.isInFirstGroup() ? "first" : "-" );
         Time time = new Time();
         time.set(app.getInstallDate());
         data.setText(time.format("%d.%m.%Y %H:%M:%S"));
