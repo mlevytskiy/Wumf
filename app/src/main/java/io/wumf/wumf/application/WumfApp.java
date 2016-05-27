@@ -10,6 +10,7 @@ import io.realm.RealmConfiguration;
 import io.wumf.wumf.friends.Friend;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.LoadContactsFinishedEvent;
+import io.wumf.wumf.util.PhoneNumberDetector;
 
 /**
  * Created by max on 30.03.16.
@@ -25,6 +26,7 @@ public class WumfApp extends Application {
         super.onCreate();
         instance = this;
         initRealm();
+        PhoneNumberDetector.getPhones(this);
     }
 
     public void initRealm() {
@@ -43,5 +45,7 @@ public class WumfApp extends Application {
         this.friends = friends;
         BusProvider.getInstance().post(new LoadContactsFinishedEvent());
     }
+
+
 
 }
