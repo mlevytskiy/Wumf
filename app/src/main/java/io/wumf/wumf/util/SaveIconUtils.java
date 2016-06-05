@@ -76,24 +76,26 @@ public class SaveIconUtils {
 
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if(bitmapDrawable.getBitmap() != null) {
+            if((bitmap = bitmapDrawable.getBitmap()) != null) {
                 if (bitmapDrawable.getIntrinsicHeight() > iconHeight ||
                         bitmapDrawable.getIntrinsicWidth() > iconHeight) {
-                    return Bitmap.createScaledBitmap(bitmapDrawable.getBitmap(), iconHeight, iconHeight, false);
+                    bitmap = Bitmap.createScaledBitmap(bitmapDrawable.getBitmap(), iconHeight, iconHeight, false);
+                } else {
+                    //do nothing
                 }
-                return bitmapDrawable.getBitmap();
             }
-        }
-
-        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
         } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+                bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+            } else {
+                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            }
+
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
         }
 
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
         return bitmap;
     }
 }
