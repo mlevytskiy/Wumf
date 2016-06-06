@@ -10,6 +10,7 @@ import io.wumf.wumf.R;
 import io.wumf.wumf.activity.common.AnimationActivity;
 import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.util.PackageSizeUtil;
+import io.wumf.wumf.util.PhoneNumberDetector;
 import io.wumf.wumf.util.packageSizeUtilImpl.PkgSizeObserver;
 import io.wumf.wumf.view.IconImageView;
 import io.wumf.wumf.view.LabelTextView;
@@ -32,6 +33,7 @@ public class AppActivity extends AnimationActivity {
         LabelTextView labelTextView = (LabelTextView) findViewById(R.id.label);
         labelTextView.setApp(app);
         showPackageSize();
+        PhoneNumberDetector.getPhones(this);
     }
 
     private void showPackageSize() {

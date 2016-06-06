@@ -7,9 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Map;
+
 import io.wumf.wumf.R;
+import io.wumf.wumf.application.WumfApp;
 import io.wumf.wumf.util.CpuInfo;
 import io.wumf.wumf.util.DeviceName;
+import io.wumf.wumf.util.phoneNumberDetectorImpl.PhoneNumberProvider;
 
 /**
  * Created by max on 28.03.16.
@@ -22,6 +26,9 @@ public class PhoneInfoFragment extends Fragment {
         final TextView phoneModel = (TextView) view.findViewById(R.id.phone_model);
         final TextView phoneName = (TextView) view.findViewById(R.id.phone_name);
         final TextView manufactureTextView = (TextView) view.findViewById(R.id.manufacture);
+        TextView phoneNumber = (TextView) view.findViewById(R.id.phone_number);
+        phoneNumber.setText(phonesToString(WumfApp.instance.phones));
+
         DeviceName.with(getContext()).request(new DeviceName.Callback() {
 
             @Override
@@ -40,6 +47,17 @@ public class PhoneInfoFragment extends Fragment {
         TextView cpuInfo = (TextView) view.findViewById(R.id.cpu_info);
         cpuInfo.setText(CpuInfo.getInfo());
         return view;
+    }
+
+    private String phonesToString(Map<PhoneNumberProvider, String> map) {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<PhoneNumberProvider, String> entry : map.entrySet()) {
+            builder.append(entry.getKey());
+            builder.append(':');
+            builder.append(entry.getValue());
+            builder.append('\n');
+        }
+        return builder.toString();
     }
 
 }

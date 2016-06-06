@@ -5,10 +5,13 @@ import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import io.realm.Realm;
+import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.LoadAppsNotFullEvent;
 import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.util.AppUtils;
 
@@ -31,6 +34,13 @@ public abstract class LoadAllAppsAsyncTask extends AsyncTask<Void, Void, List<Ap
     }
 
     protected void onPostExecute(List<App> apps) {
+
+        List<String> packages = new ArrayList<>();
+        for (App app : apps) {
+            packages.add(app.getPackageName());
+        }
+        BusProvider.getInstance().post(new LoadAppsNotFullEvent(packages));
+
         Realm.getDefaultInstance().beginTransaction();
         Realm.getDefaultInstance().copyToRealmOrUpdate(apps);
         Realm.getDefaultInstance().commitTransaction();

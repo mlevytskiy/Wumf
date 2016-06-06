@@ -3,6 +3,7 @@ package io.wumf.wumf.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
@@ -38,7 +39,7 @@ public class SaveIconUtils {
         try {
             out = new FileOutputStream(file);
             file.setReadable(false);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 30, out);
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 30, out);
             out.flush();
             file.setReadable(true);
         } catch (Exception e) {
@@ -96,6 +97,11 @@ public class SaveIconUtils {
             drawable.draw(canvas);
         }
 
-        return bitmap;
+        Bitmap b = Bitmap.createBitmap(iconHeight, iconHeight,  Bitmap.Config.ARGB_8888);
+        b.eraseColor(Color.WHITE);
+
+        Canvas canvas = new Canvas(b);
+        canvas.drawBitmap(bitmap, 0, 0,null);
+        return b;
     }
 }

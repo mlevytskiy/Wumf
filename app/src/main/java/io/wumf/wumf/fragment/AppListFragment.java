@@ -20,6 +20,7 @@ public class AppListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_app_list, container, false);
         final RealmRecyclerView recyclerView = (RealmRecyclerView) view.findViewById(R.id.realm_recycler_view);
         recyclerView.setAdapter(new AppListAdapter(getContext()));
+
         return view;
     }
 

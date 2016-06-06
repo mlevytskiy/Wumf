@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
@@ -11,16 +19,27 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi', 'armeabi-v7a', 'mips'
+            universalApk false
+        }
+    }
+
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile project(path: ':CircularImageView:circularimageview')
     compile 'com.android.support:appcompat-v7:23.3.0'
@@ -31,9 +50,16 @@ dependencies {
     compile 'io.realm:realm-android:0.87.5'
     compile 'com.squareup:otto:+'
     compile 'com.github.thorbenprimke:realm-recyclerview:0.9.12'
+    compile 'com.google.firebase:firebase-database:9.0.1'
+    compile 'com.google.firebase:firebase-storage:9.0.1'
+    compile 'com.google.firebase:firebase-storage:9.0.1'
+    compile 'io.reactivex:rxjava:1.1.5'
+    compile project(':rxandroid-1.2.0')
 }
 
 task copyDependencies(type: Copy) {
     from configurations.compile
     into 'dependencies'
 }
+
+apply plugin: 'com.google.gms.google-services'
