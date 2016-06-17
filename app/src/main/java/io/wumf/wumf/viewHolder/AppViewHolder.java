@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import io.wumf.wumf.R;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.OnAppClickUninstallEvent;
+import io.wumf.wumf.otto.event.OnAppItemClickEvent;
 import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.view.IconImageView;
 import io.wumf.wumf.view.LabelTextView;
@@ -32,6 +33,13 @@ public class AppViewHolder extends AnyRealmViewHolder<App> {
                 BusProvider.getInstance().post(new OnAppClickUninstallEvent(packageName));
             }
         });
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String packageName = (String) v.getTag();
+                BusProvider.getInstance().post(new OnAppItemClickEvent(packageName));
+            }
+        });
     }
 
     @Override
@@ -39,6 +47,7 @@ public class AppViewHolder extends AnyRealmViewHolder<App> {
         label.setApp(item);
         icon.setApp(item);
         uninstall.setTag(item.getPackageName());
+        itemView.setTag(item.getPackageName());
     }
 
 }

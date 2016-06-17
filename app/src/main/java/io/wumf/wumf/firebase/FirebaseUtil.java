@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.List;
@@ -34,7 +35,8 @@ public class FirebaseUtil {
                 .flatMap(new Func1<App, Observable<UploadTask.TaskSnapshot>>() {
                     @Override
                     public Observable<UploadTask.TaskSnapshot> call(App app) {
-                        UploadTask uploadTask = FirebaseStorage.getInstance().getReference(app.packageName + ".webp").putFile(app.localIconPath);
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReference(app.packageName + ".webp");
+                        UploadTask uploadTask = storageReference.putFile(app.localIconPath);
                         RxUploadTask rxUploadTask = new RxUploadTask(uploadTask, "+38063767443", app.packageName, app.name);
                         return rxUploadTask.getObservable();
                     }
@@ -48,6 +50,7 @@ public class FirebaseUtil {
             FirebaseApp firebaseApp = new FirebaseApp(name, iconUri);
             String appFolder = appPackage.replace(".", " ");
             ref.child("apps").child(appFolder).setValue(firebaseApp);
+            getRootRef().child("apps").child(appFolder).setValue(firebaseApp);
         } catch (ItsPhoneAddedFirstTimeException e) {
             //do nothing
         }

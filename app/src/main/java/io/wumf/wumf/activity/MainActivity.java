@@ -125,6 +125,7 @@ public class MainActivity extends PrepareDataActivity {
     }
 
     private void initContactsLoader() {
+        Toast.makeText(this, "initContactsLoader()", Toast.LENGTH_LONG).show();
         getSupportLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<Cursor>() {
 
             @Override
@@ -136,6 +137,7 @@ public class MainActivity extends PrepareDataActivity {
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
                 FriendsLoader.onLoadFinished(loader, data);
                 Toast.makeText(MainActivity.this, "size=" + WumfApp.instance.getFriends().size(), Toast.LENGTH_LONG).show();
+                getLoaderManager().destroyLoader(0);
             }
 
             @Override
