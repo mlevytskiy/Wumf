@@ -1,7 +1,7 @@
-side menu:
-- basic (uninstall/restore(from google play), move apps to sdcard, start app, find app, change list to grid with animation)
-- social (social module - can see friend's apps)
-- share app (can share link and apk via email https://play.google.com/store/apps/details?id=com.appshare.shrethis.appshare&hl=en)
-- lock app (can lock app https://play.google.com/store/apps/details?id=com.domobile.applock&hl=en)
-- backup (can backup and restore all apps with user data)
-- hidden apps (show apps without launchers https://play.google.com/store/apps/details?id=com.seasmind.android.gmappmgr&hl=en)
+Apps
+ -all
+ -removed
+ -finder - you can see on map many apps - points. Different filters.
+
+Friends
+ - see friend detail

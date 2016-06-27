@@ -2,7 +2,6 @@ package io.wumf.wumf.application;
 
 import android.app.Application;
 import android.content.Context;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
@@ -14,6 +13,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.wumf.wumf.firebase.FirebaseUtil;
 import io.wumf.wumf.firebase.MyDeviceInfo;
+import io.wumf.wumf.firebase2.FirebaseApi;
 import io.wumf.wumf.friends.Friend;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.LoadAppsFinishEvent;
@@ -21,7 +21,6 @@ import io.wumf.wumf.otto.event.LoadAppsNotFullEvent;
 import io.wumf.wumf.otto.event.LoadContactsFinishedEvent;
 import io.wumf.wumf.util.PhoneNumberDetector;
 import io.wumf.wumf.util.phoneNumberDetectorImpl.PhoneNumberProvider;
-import rx.Subscriber;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -76,25 +75,9 @@ public class WumfApp extends Application {
 
     @Subscribe
     public void uploadMyInfoInFirebase(LoadAppsFinishEvent event) {
-
-        subscription.add(FirebaseUtil.setFullAppsInfo(event.apps)
-                .subscribe(new Subscriber() {
-                    @Override
-                    public void onCompleted() {
-                        Toast.makeText(getApplicationContext(), "onComplited", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getApplicationContext(), "onError", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onNext(Object o) {
-                        //do nothing
-                    }
-                }));
-
+        MyDeviceInfo myDeviceInfo = new MyDeviceInfo();
+        myDeviceInfo.setPhoneModel("hhhhhh");
+        FirebaseApi.setFullMyInfo("8889", myDeviceInfo, event.apps);
     }
 
 }

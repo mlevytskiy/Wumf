@@ -35,7 +35,7 @@ public class RxUploadTask {
                 uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        FirebaseUtil.setAppValue(phoneNumber, appPackage, taskSnapshot.getDownloadUrl().toString(), name);
+//                        FirebaseUtil.setAppValue(phoneNumber, appPackage, taskSnapshot.getDownloadUrl().toString(), name);
                         subscriber.onNext(taskSnapshot);
                         subscriber.onCompleted();
                     }
