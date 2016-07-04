@@ -68,6 +68,7 @@ public class FirebaseUtilPart1 {
                             ref.child(app.getFirebaseKey()).child("phones").child(String.valueOf(size)).setValue(myPhone);
                         }
                     }
+                    ref.child(app.getFirebaseKey()).removeEventListener(this);
                 }
 
                 @Override

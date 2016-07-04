@@ -27,6 +27,7 @@ public class FirebaseUtilPart2 {
                     } else {
                         //do nothing
                     }
+                    ref.child(app.getFirebaseKey()).removeEventListener(this);
                 }
 
                 @Override

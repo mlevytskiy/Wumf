@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "132675158682",
-    "firebase_url": "https://project-2653846598270625388.firebaseio.com",
-    "project_id": "project-2653846598270625388",
-    "storage_bucket": "project-2653846598270625388.appspot.com"
+    "project_number": "569503116081",
+    "firebase_url": "https://project-261530344201877452.firebaseio.com",
+    "project_id": "project-261530344201877452",
+    "storage_bucket": "project-261530344201877452.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:132675158682:android:cba4cee97db37c0e",
+        "mobilesdk_app_id": "1:569503116081:android:cba4cee97db37c0e",
         "android_client_info": {
           "package_name": "io.wumf.wumf"
         }
       },
       "oauth_client": [
         {
-          "client_id": "132675158682-slkja44u1jqrbcufnocurtpnkcvpjj5b.apps.googleusercontent.com",
+          "client_id": "569503116081-m878k2rpfempk5eefrr9v2ga2enk2hfh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "io.wumf.wumf",
-            "certificate_hash": "A2A77128D060A6FA035F68C4B3E4F79ABFE3219C"
+            "certificate_hash": "CB8A5EC462099B8DA98E152AEB199FB6681A81B9"
           }
         },
         {
-          "client_id": "132675158682-05591p73b016l3fvme2femn8mgupc85b.apps.googleusercontent.com",
+          "client_id": "569503116081-2dubv6ub74dqrhu83k2pqgjelamql20r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAOkaJ_SCT8SNWPZzDf5DW6VRYm5eDRSyk"
+          "current_key": "AIzaSyDuz_Kz16LG_SePxGuo48lOl5DDwdvhy90"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "132675158682-05591p73b016l3fvme2femn8mgupc85b.apps.googleusercontent.com",
+              "client_id": "569503116081-2dubv6ub74dqrhu83k2pqgjelamql20r.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
