@@ -43,6 +43,7 @@ public class TabFragment extends Fragment {
 //        adapter.addFrag(new PhoneInfoFragment(), "share apk");
 //        adapter.addFrag(new PhoneInfoFragment(), "phone2sdcard");
         adapter.addFrag(new TimelineFragment(), "timeline");
+        adapter.addFrag(new UploadOnFirebaseFragment(), "firebase");
         adapter.addFrag(new AppsOtherFragment(), "...");
 //        adapter.addFrag(new TimelineFragment(), "timeline");
         viewPager.setAdapter(adapter);

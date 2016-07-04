@@ -20,9 +20,14 @@ public class AppViewHolder extends AnyRealmViewHolder<App> {
     private IconImageView icon;
     private LabelTextView label;
     private ImageButton uninstall;
+    private View bottomBar;
+    private View systemApp;
 
     public AppViewHolder(ViewGroup parent) {
         super(parent, R.layout.viewholder_app);
+
+        bottomBar = itemView.findViewById(R.id.bottom_bar);
+        systemApp = itemView.findViewById(R.id.system_app);
         label = (LabelTextView) itemView.findViewById(R.id.label);
         icon = (IconImageView) itemView.findViewById(R.id.icon);
         uninstall = (ImageButton) itemView.findViewById(R.id.uninstall);
@@ -48,6 +53,8 @@ public class AppViewHolder extends AnyRealmViewHolder<App> {
         icon.setApp(item);
         uninstall.setTag(item.getPackageName());
         itemView.setTag(item.getPackageName());
+        bottomBar.setVisibility(item.isSystemApp() ? View.INVISIBLE : View.VISIBLE);
+        systemApp.setVisibility(item.isSystemApp() ? View.VISIBLE : View.INVISIBLE);
     }
 
 }

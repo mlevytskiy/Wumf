@@ -15,7 +15,9 @@ public class AppListAdapter extends AnyRealmAdapter<App, AppViewHolder> {
 
     public AppListAdapter(Context context) {
         super(context, Realm.getDefaultInstance().where(App.class)
-                .equalTo("isRemoved", false).findAllSorted("installDate", Sort.DESCENDING));
+                .equalTo("isRemoved", false)
+                .equalTo("systemApp", false)
+                .findAllSorted("installDate", Sort.DESCENDING));
     }
 
     @Override

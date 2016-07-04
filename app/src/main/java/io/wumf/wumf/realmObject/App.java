@@ -16,9 +16,9 @@ public class App extends RealmObject {
     private long installDate;
     private String iconPath;
     private String label;
-    private boolean inFirstGroup = false;
     private RealmList<Event> events;
     private String apkFilePath;
+    private boolean systemApp = false;
 
     public String getPackageName() {
         return packageName;
@@ -68,14 +68,6 @@ public class App extends RealmObject {
         this.events = events;
     }
 
-    public boolean isInFirstGroup() {
-        return inFirstGroup;
-    }
-
-    public void setInFirstGroup(boolean inFirstGroup) {
-        this.inFirstGroup = inFirstGroup;
-    }
-
     public String getLauncherActivity() {
         return launcherActivity;
     }
@@ -91,4 +83,13 @@ public class App extends RealmObject {
     public void setApkFilePath(String apkFilePath) {
         this.apkFilePath = apkFilePath;
     }
+
+    public boolean isSystemApp() {
+        return systemApp;
+    }
+
+    public void setSystemApp(boolean systemApp) {
+        this.systemApp = systemApp;
+    }
+
 }

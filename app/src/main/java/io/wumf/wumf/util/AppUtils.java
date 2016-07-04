@@ -7,6 +7,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ import io.wumf.wumf.realmObject.EventType;
  */
 public class AppUtils {
 
+    private static final String TAG = AppUtils.class.getSimpleName();
+
     private PackageManager pm;
     private SaveIconUtils saveIconUtils;
     private FileGenerator fileGenerator;
@@ -45,9 +49,9 @@ public class AppUtils {
             map.put(apps.get(i), resolveInfos.get(i));
         }
         sortByInstallDate(apps);
-        setInFirstGroupFlag(apps);
         Collections.reverse(apps);
         addLabelAndIcon(apps, map, 10);
+        setSystemFlag(apps);
         return apps;
     }
 
@@ -57,7 +61,7 @@ public class AppUtils {
         for (int i = startAppIndex; i < end; i++) {
             result.add(apps.get(i));
         }
-        addLabelAndIcon(result, map, step+1);
+        addLabelAndIcon(result, map, step + 1);
         return result;
     }
 
@@ -67,6 +71,7 @@ public class AppUtils {
             index++;
             app.setLabel(((String) map.get(app).loadLabel(pm)));
             app.setIconPath(loadAndSaveIconInFile(pm, map.get(app)));
+
             if (index == firstElementsCount) {
                 return;
             }
@@ -78,6 +83,7 @@ public class AppUtils {
     }
 
     public App loadAppFromSystem(String packageName) {
+        Log.i(TAG, "loadAppFromSystem");
         ResolveInfo resolveInfo = loadResolveInfo(packageName);
         App app = resolveInfoToApp(resolveInfo);
         loadInfoFromAppInfo(app);
@@ -90,6 +96,7 @@ public class AppUtils {
     }
 
     private ResolveInfo loadResolveInfo(String packageName) {
+        Log.i(TAG, "loadResolveInfo");
         Intent intent = new Intent();
         intent.setPackage(packageName);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -97,6 +104,7 @@ public class AppUtils {
     }
 
     private BaseAppInfo resolveInfoToBaseAppInfo(ResolveInfo resolveInfo) {
+        Log.i(TAG, "resolveInfoToBaseAppInfo");
         BaseAppInfo baseAppInfo = new BaseAppInfo();
         baseAppInfo.setLauncherActivity(resolveInfo.activityInfo.name);
         baseAppInfo.setInstallDate(getInstallDate(resolveInfo.activityInfo.packageName));
@@ -105,6 +113,7 @@ public class AppUtils {
     }
 
     private App resolveInfoToApp(ResolveInfo resolveInfo) {
+        Log.i(TAG, "resolveInfoToApp");
         App app = new App();
         app.setInstallDate(getInstallDate(resolveInfo.activityInfo.packageName));
         app.setPackageName(resolveInfo.activityInfo.packageName);
@@ -117,9 +126,11 @@ public class AppUtils {
     private void loadInfoFromAppInfo(App app) {
         try {
             ApplicationInfo applicationInfo = pm.getApplicationInfo(app.getPackageName(), 0);
+            app.setSystemApp(isSystem(applicationInfo));
             loadInfoFromApplicationInfo(applicationInfo, app);
+            Log.i(TAG, "loadInfoFromAppInfo");
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            Log.e(TAG, "loadInfoFromAppInfo", e);
         }
     }
 
@@ -130,9 +141,23 @@ public class AppUtils {
 
     private List<App> resolveInfoToApp(List<ResolveInfo> list) {
         List<App> result = new ArrayList<>();
+        long systemInstallDate = -1;
         for (ResolveInfo resolveInfo : list) {
-            result.add(resolveInfoToApp(resolveInfo));
+            if (TextUtils.equals("io.wumf.wumf", resolveInfo.activityInfo.packageName)) {
+                continue; //skip wumf app
+            } else {
+                result.add(resolveInfoToApp(resolveInfo));
+            }
         }
+
+        systemInstallDate = systemInstallDate + TimeUnit.MINUTES.toMillis(30);
+
+        for (App app : new ArrayList<>(result)) {
+            if (app.getInstallDate() < systemInstallDate) {
+                result.remove(app); //remove also some system apps
+            }
+        }
+
         return result;
     }
 
@@ -191,17 +216,43 @@ public class AppUtils {
         });
     }
 
-    private void setInFirstGroupFlag(List<App> apps) {
-        for (int i = 1; i < apps.size(); i++) {
-            App app = apps.get(i);
-            App previousApp = apps.get(i - 1);
-            if (Math.abs(previousApp.getInstallDate() - app.getInstallDate()) < TimeUnit.MINUTES.toMillis(1)) {
-                app.setInFirstGroup(true);
-                previousApp.setInFirstGroup(true);
+    private boolean isSystem(ApplicationInfo applicationInfo) {
+        int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
+        if ((applicationInfo.flags & mask) == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void setSystemFlag(List<App> apps) {
+        long systemInstallDate = -1;
+        for (App app : apps) {
+            try {
+                app.setSystemApp(isSystem(pm.getApplicationInfo(app.getPackageName(), 0)));
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.e(TAG, e.getMessage());
+            }
+
+            if (app.isSystemApp()) {
+                systemInstallDate = app.getInstallDate();
             } else {
-                break;
+                //do nothing
             }
         }
+
+        if (systemInstallDate == -1) {
+            return;
+        }
+
+        systemInstallDate = systemInstallDate + TimeUnit.MINUTES.toMillis(30);
+
+        for (App app : apps) {
+            if (app.getInstallDate() < systemInstallDate) {
+                app.setSystemApp(true);
+            }
+        }
+
     }
 
 }
