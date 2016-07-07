@@ -1,4 +1,4 @@
-package io.wumf.wumf.firebase.uploadDataPart1;
+package io.wumf.wumf.firebase.uploadDataToAppsNode;
 
 /**
  * Created by max on 04.07.16.

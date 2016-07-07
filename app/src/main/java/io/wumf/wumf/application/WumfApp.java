@@ -2,8 +2,6 @@ package io.wumf.wumf.application;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
@@ -13,13 +11,20 @@ import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.wumf.wumf.firebase.uploadDataPart2.FirebaseUtilPart2;
-import io.wumf.wumf.friends.Friend;
+import io.wumf.wumf.contacts.Contact;
+import io.wumf.wumf.firebase.pojo.UploadStatus;
+import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
+import io.wumf.wumf.firebase.uploadDataToPhonesNode.FirebasePhonesUtil;
+import io.wumf.wumf.memory.Memory;
 import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.FirebaseLoadFriendsFinishedEvent;
+import io.wumf.wumf.otto.event.FirebaseUploadFinishedEvent;
+import io.wumf.wumf.otto.event.FirebaseUploadStartedEvent;
 import io.wumf.wumf.otto.event.LoadAppsFinishEvent;
 import io.wumf.wumf.otto.event.LoadAppsNotFullEvent;
 import io.wumf.wumf.otto.event.LoadContactsFinishedEvent;
 import io.wumf.wumf.otto.event.UploadDataPart1FinishedEvent;
+import io.wumf.wumf.pojo.App;
 import io.wumf.wumf.util.PhoneNumberDetector;
 import io.wumf.wumf.util.phoneNumberDetectorImpl.PhoneNumberProvider;
 import rx.subscriptions.CompositeSubscription;
@@ -33,8 +38,10 @@ public class WumfApp extends Application {
     public static WumfApp instance;
     private static final String REALM_DATABASE = "myrealm.realm";
     private static final int REALM_VERSION = 42;
-    private List<Friend> friends = new ArrayList<>();
+    private List<Contact> friends = new ArrayList<>();
+    public Map<Contact, List<App>> friendsFullInfo;
     public Map<PhoneNumberProvider, String> phones;
+    private UploadStatus firebaseUploadStatus = UploadStatus.NOT_STARTING;
 
     private final CompositeSubscription subscription = new CompositeSubscription();
 
@@ -44,6 +51,7 @@ public class WumfApp extends Application {
         initRealm();
         phones = PhoneNumberDetector.getPhones(this);
         BusProvider.getInstance().register(this);
+        Memory.INSTANCE.init(this);
     }
 
     public void initRealm() {
@@ -54,13 +62,18 @@ public class WumfApp extends Application {
         Realm.setDefaultConfiguration(realmConfig);
     }
 
-    public List<Friend> getFriends() {
+    public List<Contact> getFriends() {
         return friends;
     }
 
-    public void setFriends(List<Friend> friends) {
-        this.friends = friends;
-        BusProvider.getInstance().post(new LoadContactsFinishedEvent());
+    public void setFriends(List<Contact> friends) {
+        if (this.friends.isEmpty()) {
+            this.friends = friends;
+            FirebasePhonesUtil.load(friends);
+//            BusProvider.getInstance().post(new LoadContactsFinishedEvent(friends));
+        } else {
+            //do nothing
+        }
     }
 
     @Override
@@ -77,6 +90,7 @@ public class WumfApp extends Application {
 
     @Subscribe
     public void uploadMyInfoInFirebase(LoadAppsFinishEvent event) {
+        FirebaseAppsUtil.upload(event.apps);
 //        MyDeviceInfo myDeviceInfo = new MyDeviceInfo();
 //        myDeviceInfo.setPhoneModel("hhhhhh");
 //        FirebaseApi.setFullMyInfo("8889", myDeviceInfo, event.apps);
@@ -84,10 +98,32 @@ public class WumfApp extends Application {
 
     @Subscribe
     public void uploadDataPart1(UploadDataPart1FinishedEvent event) {
-        Log.i(TAG, "uploadDataPart1");
-        Toast.makeText(this, "uploadDataPart1 isSuccess=" + event.success, Toast.LENGTH_LONG).show();
-        FirebaseUtilPart2.upload(event.apps);
+        FirebasePhonesUtil.upload(event.apps);
     }
 
+    @Subscribe
+    public void loadContacts(LoadContactsFinishedEvent event) {
+        if (firebaseUploadStatus == UploadStatus.NOT_STARTING) {
+            FirebasePhonesUtil.load(event.friends);
+        }
+    }
+
+    @Subscribe
+    public void firebaseUploadStartedEvent(FirebaseUploadStartedEvent event) {
+        firebaseUploadStatus = UploadStatus.NOT_STARTING;
+    }
+
+    @Subscribe
+    public void firebaseUploadFinishedEvent(FirebaseUploadFinishedEvent event) {
+        firebaseUploadStatus = UploadStatus.FINISH;
+        if ( !friends.isEmpty() ) {
+            FirebasePhonesUtil.load(friends);
+        }
+    }
+
+    @Subscribe
+    public void firebaseLoadFriendsFinishedEvent(FirebaseLoadFriendsFinishedEvent event) {
+        friendsFullInfo = event.map;
+    }
 
 }

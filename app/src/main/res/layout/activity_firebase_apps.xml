@@ -5,24 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_700"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
 
     <Button
-        android:id="@+id/upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="UPLOAD" />
+        android:text="for each friend"
+        android:onClick="onClickForEachFriend" />
 
     <Button
-        android:id="@+id/showFirebaseData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SHOW FIREBASE DATA" />
-    
-    <Button
-        android:id="@+id/loadFriendsData"
+        android:text="all apps"
+        android:onClick="onClickAllApps" />
+
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="LOAD FRIENDS DATA" />
+        android:layout_height="match_parent"
+        android:text="FIREBASE APPS"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_gravity="center" />
 
 </LinearLayout>

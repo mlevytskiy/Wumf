@@ -1,7 +1,6 @@
 package io.wumf.wumf.activity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -9,11 +8,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
@@ -22,11 +18,9 @@ import java.util.List;
 
 import io.wumf.wumf.R;
 import io.wumf.wumf.activity.common.PrepareDataActivity;
-import io.wumf.wumf.application.WumfApp;
 import io.wumf.wumf.fragment.FriendsFragment;
 import io.wumf.wumf.fragment.PhoneInfoFragment;
 import io.wumf.wumf.fragment.TabFragment;
-import io.wumf.wumf.friends.preloading.FriendsLoader;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.OnAppClickUninstallEvent;
 import io.wumf.wumf.otto.event.OnAppItemClickEvent;
@@ -58,7 +52,6 @@ public class MainActivity extends PrepareDataActivity {
         appBarLayout.setBackgroundColor(getResources().getColor(R.color.primary_700));
         tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
 
-        initContactsLoader();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -122,28 +115,5 @@ public class MainActivity extends PrepareDataActivity {
     @Override public void onPause() {
         super.onPause();
         BusProvider.getInstance().unregister(this);
-    }
-
-    private void initContactsLoader() {
-        Toast.makeText(this, "initContactsLoader()", Toast.LENGTH_LONG).show();
-        getSupportLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<Cursor>() {
-
-            @Override
-            public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-                return new FriendsLoader(MainActivity.this);
-            }
-
-            @Override
-            public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-                FriendsLoader.onLoadFinished(loader, data);
-                Toast.makeText(MainActivity.this, "size=" + WumfApp.instance.getFriends().size(), Toast.LENGTH_LONG).show();
-                getLoaderManager().destroyLoader(0);
-            }
-
-            @Override
-            public void onLoaderReset(Loader<Cursor> loader) {
-
-            }
-        }).forceLoad();
     }
 }

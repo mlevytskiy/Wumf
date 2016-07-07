@@ -1,4 +1,4 @@
-package io.wumf.wumf.firebase.uploadDataPart2.pojo;
+package io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo;
 
 /**
  * Created by max on 04.07.16.

@@ -1,4 +1,4 @@
-package io.wumf.wumf.firebase.uploadDataPart1.pojo;
+package io.wumf.wumf.firebase.uploadDataToAppsNode.pojo;
 
 import java.util.List;
 

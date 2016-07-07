@@ -5,7 +5,8 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.wumf.wumf.firebase.uploadDataPart1.pojo.FirebaseApp;
+import io.wumf.wumf.firebase.uploadDataToAppsNode.pojo.FirebaseApp;
+import io.wumf.wumf.memory.Memory;
 
 /**
  * Created by max on 28.06.16.
@@ -46,14 +47,14 @@ public class App {
             firebaseApp.setIcon(publicIconPath);
         }
         List<String> phones = new ArrayList<>();
-        phones.add("+380637674440");
+        phones.add(Memory.INSTANCE.getPhone());
         firebaseApp.setPhones(phones);
         return firebaseApp;
     }
 
-    public io.wumf.wumf.firebase.uploadDataPart2.pojo.FirebaseApp getFirebaseValueDataPart2() {
-        io.wumf.wumf.firebase.uploadDataPart2.pojo.FirebaseApp firebaseApp = new
-                io.wumf.wumf.firebase.uploadDataPart2.pojo.FirebaseApp();
+    public io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo.FirebaseApp getFirebaseValueDataPart2() {
+        io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo.FirebaseApp firebaseApp = new
+                io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo.FirebaseApp();
         firebaseApp.setName(name);
         firebaseApp.setIcon(publicIconPath);
         return firebaseApp;

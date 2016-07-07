@@ -1,4 +1,4 @@
-package io.wumf.wumf.firebase.uploadDataPart1;
+package io.wumf.wumf.firebase.uploadDataToAppsNode;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -20,21 +20,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.wumf.wumf.firebase.pojo.App;
-import io.wumf.wumf.firebase.uploadDataPart1.pojo.FirebaseApp;
+import io.wumf.wumf.firebase.uploadDataToAppsNode.pojo.FirebaseApp;
 import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.FirebaseUploadStartedEvent;
 import io.wumf.wumf.otto.event.UploadDataPart1FinishedEvent;
 
 /**
  * Created by max on 28.06.16.
  */
-public class FirebaseUtilPart1 {
+public class FirebaseAppsUtil {
 
-    private static final String TAG = FirebaseUtilPart1.class.getSimpleName();
+    private static final String TAG = FirebaseAppsUtil.class.getSimpleName();
 
     private static boolean success = true;
     private static CountDown countDown;
 
     private static void uploadTestData2(final List<App> apps) {
+        BusProvider.getInstance().post(new FirebaseUploadStartedEvent());
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("apps");
         countDown = new CountDown(apps.size());
 
@@ -46,7 +48,7 @@ public class FirebaseUtilPart1 {
         });
 
         for (final App app : apps) {
-            ref.child(app.getFirebaseKey()).addValueEventListener(new ValueEventListener(){
+            ref.child(app.getFirebaseKey()).addValueEventListener(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

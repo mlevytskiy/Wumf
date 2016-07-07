@@ -2,7 +2,7 @@ package io.wumf.wumf.otto.event;
 
 import java.util.List;
 
-import io.wumf.wumf.pojo.App;
+import io.wumf.wumf.realmObject.App;
 
 /**
  * Created by max on 31.05.16.

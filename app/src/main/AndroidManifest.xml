@@ -17,7 +17,7 @@
         android:name=".application.WumfApp"
         android:theme="@style/MyTheme">
 
-        <activity android:name=".activity.MainActivity" >
+        <activity android:name=".activity.EnterYourPhoneNumberActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -25,7 +25,17 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.MainActivity" />
+
         <activity android:name=".activity.AppActivity" />
+
+        <activity android:name=".activity.FirebaseMainActivity" />
+
+        <activity android:name=".activity.FirebaseAppsActivity" />
+
+        <activity android:name=".activity.FirebaseAppsActivity2" />
+
+        <activity android:name=".activity.FirebaseFriendsActivity" />
 
         <receiver android:name=".broadcastReceiver.AddAppBR"
                   android:exported="true"

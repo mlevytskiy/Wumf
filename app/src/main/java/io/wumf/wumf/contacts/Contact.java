@@ -1,26 +1,22 @@
-package io.wumf.wumf.friends;
+package io.wumf.wumf.contacts;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 /**
- * Created by max on 21.06.15.
+ * Created by max on 06.07.16.
  */
-public class Friend implements Parcelable {
+public class Contact implements Parcelable {
 
-    private List<String> apps;
     private String name;
     private String phone;
     private String url;
 
-    public List<String> getApps() {
-        return apps;
-    }
+    public Contact() { }
 
-    public void setApps(List<String> apps) {
-        this.apps = apps;
+    public Contact(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
     }
 
     public String getName() {
@@ -59,26 +55,21 @@ public class Friend implements Parcelable {
         dest.writeString(this.url);
     }
 
-    public Friend() {
-    }
-
-    protected Friend(Parcel in) {
+    protected Contact(Parcel in) {
         this.name = in.readString();
         this.phone = in.readString();
         this.url = in.readString();
     }
 
-    public static final Parcelable.Creator<Friend> CREATOR = new Parcelable.Creator<Friend>() {
-        public Friend createFromParcel(Parcel source) {
-            return new Friend(source);
+    public static final Parcelable.Creator<Contact> CREATOR = new Parcelable.Creator<Contact>() {
+        @Override
+        public Contact createFromParcel(Parcel source) {
+            return new Contact(source);
         }
 
-        public Friend[] newArray(int size) {
-            return new Friend[size];
+        @Override
+        public Contact[] newArray(int size) {
+            return new Contact[size];
         }
     };
-
-    public String toString() {
-        return name + "|" + phone;
-    }
 }
