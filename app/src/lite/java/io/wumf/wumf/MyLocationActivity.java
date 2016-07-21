@@ -12,6 +12,11 @@ import java.util.Map;
 
 import io.wumf.wumf.activity.common.PrepareDataActivity;
 import io.wumf.wumf.application.WumfApp;
+import io.wumf.wumf.rest.LocationApi;
+import io.wumf.wumf.rest.pojo.Location;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by max on 17.07.16.
@@ -37,8 +42,23 @@ public class MyLocationActivity extends PrepareDataActivity {
 
         Log.i("MainActivity", "app.userCountry=" + app.userCountry);
 
-        NiceSpinner city = (NiceSpinner) findViewById(R.id.city);
-        city.attachDataSource(app.map.get(app.userCountry));
+        final NiceSpinner cityView = (NiceSpinner) findViewById(R.id.city);
+        final List<String> cities = app.map.get(app.userCountry);
+        cityView.attachDataSource(cities);
+
+        LocationApi locationApi = new LocationApi.Builder().build();
+        locationApi.getLoc().enqueue(new Callback<Location>() {
+            @Override
+            public void onResponse(Call<Location> call, Response<Location> response) {
+                cityView.setSelectedIndex(cities.indexOf(response.body().getCity()));
+            }
+
+            @Override
+            public void onFailure(Call<Location> call, Throwable t) {
+                //do nothing
+            }
+
+        });
     }
 
 }

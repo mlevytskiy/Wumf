@@ -2,6 +2,7 @@ package io.wumf.wumf.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -44,10 +45,13 @@ public class WumfApp extends Application {
     public Map<PhoneNumberProvider, String> phones;
     public Map<String, List<String>> map;
     public String userCountry;
+    public String androidId;
+    public String userCity;
 
     public void onCreate() {
         super.onCreate();
         instance = this;
+        androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         initRealm();
         phones = PhoneNumberDetector.getPhones(this);
         BusProvider.getInstance().register(this);
@@ -129,6 +133,7 @@ public class WumfApp extends Application {
     @Subscribe
     public void uploadDataPart1(UploadDataPart1FinishedEvent event) {
         FirebasePhonesUtil.upload(event.apps);
+//        FirebasePlaceUtils.uploadMyInfo();
     }
 
     @Subscribe

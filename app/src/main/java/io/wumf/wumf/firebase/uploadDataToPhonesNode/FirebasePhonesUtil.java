@@ -8,8 +8,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import io.wumf.wumf.application.WumfApp;
 import io.wumf.wumf.firebase.pojo.App;
-import io.wumf.wumf.memory.Memory;
 
 /**
  * Created by max on 04.07.16.
@@ -18,10 +18,10 @@ public class FirebasePhonesUtil {
 
     private static final String TAG = FirebasePhonesUtil.class.getSimpleName();
 
-    private static final DatabaseReference PHONES_REF = FirebaseDatabase.getInstance().getReference().child("phones");
+    private static final DatabaseReference PHONES_REF = FirebaseDatabase.getInstance().getReference().child("androidIds");
 
     public static void upload(List<App> apps) {
-        final DatabaseReference ref = PHONES_REF.child(Memory.INSTANCE.getPhone());
+        final DatabaseReference ref = PHONES_REF.child(WumfApp.instance.androidId);
         for (final App app : apps) {
             ref.child(app.getFirebaseKey()).addValueEventListener(new ValueEventListener() {
 
