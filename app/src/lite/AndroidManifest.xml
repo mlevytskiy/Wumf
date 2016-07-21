@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
           package="io.wumf.wumf">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
@@ -18,8 +17,7 @@
         android:name=".application.WumfApp"
         android:theme="@style/MyTheme">
 
-        <activity android:name=".activity.EnterYourPhoneNumberActivity"
-                  tools:node="remove">
+        <activity android:name=".MyLocationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

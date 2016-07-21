@@ -6,20 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/primary_700" >
 
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@android:color/white" />
-
     <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
         android:id="@+id/realm_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:rrvIsRefreshable="false"
         app:rrvEmptyLayoutId="@layout/empty_view"
-        app:rrvLayoutType="Grid"
-        app:rrvGridLayoutSpanCount="3"
+        app:rrvLayoutType="LinearLayout"
         android:layout_margin="2dp"
         android:background="@android:color/transparent" />
 

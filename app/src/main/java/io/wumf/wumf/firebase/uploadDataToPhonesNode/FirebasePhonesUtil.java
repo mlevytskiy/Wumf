@@ -1,24 +1,15 @@
 package io.wumf.wumf.firebase.uploadDataToPhonesNode;
 
-import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import io.wumf.wumf.contacts.Contact;
 import io.wumf.wumf.firebase.pojo.App;
-import io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo.FirebaseApp;
 import io.wumf.wumf.memory.Memory;
-import io.wumf.wumf.otto.BusProvider;
-import io.wumf.wumf.otto.event.FirebaseLoadFriendsFinishedEvent;
 
 /**
  * Created by max on 04.07.16.
@@ -52,44 +43,44 @@ public class FirebasePhonesUtil {
         }
     }
 
-    public static void load(final List<Contact> friends) {
-        final Map<Contact, List<io.wumf.wumf.pojo.App>> map = new HashMap<>();
-        for (final Contact friend : friends) {
-            Log.i(TAG, "phone=" + friend.getPhone());
-            PHONES_REF.child(friend.getPhone()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    List<io.wumf.wumf.pojo.App> apps = new ArrayList<>();
-
-                    for (DataSnapshot value : dataSnapshot.getChildren()) {
-                        String packageName = toPackageName(value.getKey());
-                        FirebaseApp firebaseApp = value.getValue(FirebaseApp.class);
-                        io.wumf.wumf.pojo.App app = new io.wumf.wumf.pojo.App(null, firebaseApp.getName(), packageName);
-                        app.setRemoteIconPath(firebaseApp.getIcon());
-                        apps.add(app);
-                    }
-
-                    map.put(friend, apps);
-
-                    PHONES_REF.child(friend.getPhone()).removeEventListener(this);
-                    if (map.size() == friends.size()) {
-                        BusProvider.getInstance().post(new FirebaseLoadFriendsFinishedEvent(map));
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    PHONES_REF.child(friend.getPhone()).removeEventListener(this);
-                    map.put(friend, null);
-                    if (map.size() == friends.size()) {
-                        BusProvider.getInstance().post(new FirebaseLoadFriendsFinishedEvent(map));
-                    }
-                }
-            });
-        }
-    }
+//    public static void load(final List<Contact> friends) {
+//        final Map<Contact, List<io.wumf.wumf.pojo.App>> map = new HashMap<>();
+//        for (final Contact friend : friends) {
+//            Log.i(TAG, "phone=" + friend.getPhone());
+//            PHONES_REF.child(friend.getPhone()).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                    List<io.wumf.wumf.pojo.App> apps = new ArrayList<>();
+//
+//                    for (DataSnapshot value : dataSnapshot.getChildren()) {
+//                        String packageName = toPackageName(value.getKey());
+//                        FirebaseApp firebaseApp = value.getValue(FirebaseApp.class);
+//                        io.wumf.wumf.pojo.App app = new io.wumf.wumf.pojo.App(null, firebaseApp.getName(), packageName);
+//                        app.setRemoteIconPath(firebaseApp.getIcon());
+//                        apps.add(app);
+//                    }
+//
+//                    map.put(friend, apps);
+//
+//                    PHONES_REF.child(friend.getPhone()).removeEventListener(this);
+//                    if (map.size() == friends.size()) {
+//                        BusProvider.getInstance().post(new FirebaseLoadFriendsFinishedEvent(map));
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//                    PHONES_REF.child(friend.getPhone()).removeEventListener(this);
+//                    map.put(friend, null);
+//                    if (map.size() == friends.size()) {
+//                        BusProvider.getInstance().post(new FirebaseLoadFriendsFinishedEvent(map));
+//                    }
+//                }
+//            });
+//        }
+//    }
 
     private static String toPackageName(String key) {
         return key.replace(" ", ".");

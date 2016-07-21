@@ -1,6 +1,5 @@
 package io.wumf.wumf.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -20,7 +19,6 @@ public class FirebaseMainActivity extends AnimationActivity {
 
     public void onClickApps(View view) {
         Toast.makeText(this, "onClickApps", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(this, FirebaseFriendsActivity.class));
     }
 
     public void onClickPhones(View view) {

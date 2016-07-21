@@ -3,6 +3,7 @@ package io.wumf.wumf.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -45,6 +46,12 @@ public class EnterYourPhoneNumberActivity extends Activity {
 
     private void goNext() {
         startActivity(new Intent(this, MainActivity.class));
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        });
     }
 
 }

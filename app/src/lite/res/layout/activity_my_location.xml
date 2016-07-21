@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/main_backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/apps2"/>
+
+    <com.github.omadahealth.typefaceview.TypefaceTextView
+        android:id="@+id/title"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        app:tv_typeface="roboto_light"
+        android:text="Wumf - app finder"
+        android:background="@drawable/rect"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:background="@drawable/rect"
+        android:layout_below="@id/title" >
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textTint="@android:color/black"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginLeft="9dp"/>
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textTint="@android:color/black"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginLeft="9dp" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:src="@drawable/find" />
+
+</RelativeLayout>

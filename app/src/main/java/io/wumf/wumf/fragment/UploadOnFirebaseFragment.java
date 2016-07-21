@@ -9,16 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.List;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
 import io.wumf.wumf.R;
 import io.wumf.wumf.activity.FirebaseMainActivity;
-import io.wumf.wumf.application.WumfApp;
-import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
-import io.wumf.wumf.firebase.uploadDataToPhonesNode.FirebasePhonesUtil;
-import io.wumf.wumf.realmObject.App;
+import io.wumf.wumf.asyncTask.SyncContactsAsyncTask;
 
 /**
  * Created by max on 01.07.16.
@@ -36,10 +29,11 @@ public class UploadOnFirebaseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "upload", Toast.LENGTH_LONG).show();
-                RealmResults<App> realmResults = Realm.getDefaultInstance().where(App.class)
-                        .equalTo("systemApp", false).findAll();
-                List<App> apps = realmResults.subList(0, realmResults.size());
-                FirebaseAppsUtil.upload(apps);
+                new SyncContactsAsyncTask().execute();
+//                RealmResults<App> realmResults = Realm.getDefaultInstance().where(App.class)
+//                        .equalTo("systemApp", false).findAll();
+//                List<App> apps = realmResults.subList(0, realmResults.size());
+//                FirebaseAppsUtil.upload(apps);
             }
         });
 
@@ -55,7 +49,7 @@ public class UploadOnFirebaseFragment extends Fragment {
         loadFriendsData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebasePhonesUtil.load(WumfApp.instance.getFriends());
+//                FirebasePhonesUtil.load(WumfApp.instance.getFriends());
             }
         });
 

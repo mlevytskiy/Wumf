@@ -1,2 +1,2 @@
-include ':app', ':CircularImageView:circularimageview', ':rxandroid-1.2.0'
+include ':app', ':CircularImageView:circularimageview', ':niceSpinner', ':typefaceView'
 

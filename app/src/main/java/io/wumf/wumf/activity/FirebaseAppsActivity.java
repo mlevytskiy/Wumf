@@ -1,6 +1,5 @@
 package io.wumf.wumf.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -23,7 +22,7 @@ public class FirebaseAppsActivity extends AnimationActivity {
     }
 
     public void onClickAllApps(View view) {
-        startActivity(new Intent(this, FirebaseAppsActivity2.class));
+//        startActivity(new Intent(this, FirebaseAppsActivity2.class));
     }
 
 }
