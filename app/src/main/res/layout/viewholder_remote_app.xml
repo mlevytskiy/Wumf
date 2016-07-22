@@ -20,12 +20,12 @@
         android:orientation="vertical"
         android:paddingTop="8dp">
 
-        <io.wumf.wumf.view.IconImageView
+        <ImageView
             android:id="@+id/icon"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
 
-        <io.wumf.wumf.view.LabelTextView
+        <TextView
             android:id="@+id/label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,8 +86,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center|top"
                 android:text="system app"
-                android:textColor="@android:color/holo_red_dark"
-                android:visibility="gone" />
+                android:textColor="@android:color/holo_red_dark" />
 
         </FrameLayout>
 

@@ -45,8 +45,8 @@ public class WumfApp extends Application {
     public Map<PhoneNumberProvider, String> phones;
     public Map<String, List<String>> map;
     public String userCountry;
-    public String androidId;
     public String userCity;
+    public String androidId;
 
     public void onCreate() {
         super.onCreate();
@@ -133,7 +133,6 @@ public class WumfApp extends Application {
     @Subscribe
     public void uploadDataPart1(UploadDataPart1FinishedEvent event) {
         FirebasePhonesUtil.upload(event.apps);
-//        FirebasePlaceUtils.uploadMyInfo();
     }
 
     @Subscribe

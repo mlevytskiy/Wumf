@@ -29,6 +29,8 @@
 
         <activity android:name=".activity.AppActivity" />
 
+        <activity android:name=".AppsActivity" />
+
         <activity android:name=".activity.FirebaseMainActivity" />
 
         <activity android:name=".activity.FirebaseAppsActivity" />

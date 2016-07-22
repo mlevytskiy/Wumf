@@ -60,4 +60,8 @@ public class App {
         return firebaseApp;
     }
 
+    public String toString() {
+        return packageName;
+    }
+
 }

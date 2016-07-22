@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.realm.Realm;
+import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.LoadAppsFinishEvent;
 import io.wumf.wumf.realmObject.App;
 import io.wumf.wumf.util.AppUtils;
 
@@ -50,7 +52,7 @@ public class LoadAdditionalInfoAsyncTask extends AsyncTask<Void, List<App>, List
     }
 
     protected void onPostExecute(List<App> result) {
-//        BusProvider.getInstance().post(new LoadAppsFinishEvent(result));
+        BusProvider.getInstance().post(new LoadAppsFinishEvent(result));
     }
 
     private io.wumf.wumf.pojo.App createFromApp(App app) {
