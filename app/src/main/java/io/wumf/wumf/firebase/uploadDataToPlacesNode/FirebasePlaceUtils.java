@@ -1,5 +1,7 @@
 package io.wumf.wumf.firebase.uploadDataToPlacesNode;
 
+import android.text.TextUtils;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,8 +45,11 @@ public class FirebasePlaceUtils {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final Map<String, List<App>> idApps = new HashMap<String, List<App>>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    idsCount++;
                     final String androidId = postSnapshot.getKey();
+                    if (TextUtils.equals(androidId, WumfApp.instance.androidId)) {
+                        continue; //ignore my id
+                    }
+                    idsCount++;
                     final DatabaseReference androidIdRef = ANDROID_IDS_REF.child(androidId);
                     ANDROID_IDS_REF.child(androidId).addValueEventListener(new ValueEventListener() {
                         @Override
