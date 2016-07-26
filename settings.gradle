@@ -1,2 +1,2 @@
-include ':app', ':CircularImageView:circularimageview', ':niceSpinner', ':typefaceView'
+include ':app', ':niceSpinner', ':typefaceView', ':circularimageview'
 
