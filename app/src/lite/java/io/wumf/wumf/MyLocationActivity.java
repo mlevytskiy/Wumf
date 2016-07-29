@@ -26,6 +26,8 @@ import retrofit2.Response;
  */
 public class MyLocationActivity extends PrepareDataActivity {
 
+    private static final String TAG = MyLocationActivity.class.getSimpleName();
+
     @Override
     protected void onCreateAfterDataPreparation(Bundle savedInstanceState) {
         setContentView(R.layout.activity_my_location);
@@ -54,7 +56,13 @@ public class MyLocationActivity extends PrepareDataActivity {
             @Override
             public void onResponse(Call<Location> call, Response<Location> response) {
                 application.userCity = response.body().getCity();
-                cityView.setSelectedIndex(cities.indexOf(application.userCity));
+                Log.i(TAG, "userCity=" + application.userCity);
+                if (TextUtils.isEmpty(application.userCity)) {
+                    application.userCity = cities.get(0);
+                    cityView.setSelectedIndex(0);
+                } else {
+                    cityView.setSelectedIndex(cities.indexOf(application.userCity));
+                }
                 FirebasePlaceUtils.uploadMyInfo(application.userCountry, application.userCity);
             }
 
