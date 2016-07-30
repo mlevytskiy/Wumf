@@ -12,8 +12,8 @@ import io.wumf.wumf.viewHolder.RemoteAppViewHolder;
  */
 public class RemoteAppsAdapter extends  AnyRealmAdapter<RemoteApp, RemoteAppViewHolder> {
 
-    public RemoteAppsAdapter(Context context) {
-        super(context, Realm.getDefaultInstance().where(RemoteApp.class).findAll());
+    public RemoteAppsAdapter(Context context, String placeId) {
+        super(context, Realm.getDefaultInstance().where(RemoteApp.class).equalTo("regionId", placeId).findAll());
     }
 
     @Override

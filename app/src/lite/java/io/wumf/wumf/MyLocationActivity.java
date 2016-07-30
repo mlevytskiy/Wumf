@@ -28,6 +28,9 @@ public class MyLocationActivity extends PrepareDataActivity {
 
     private static final String TAG = MyLocationActivity.class.getSimpleName();
 
+    private NiceSpinner countryView;
+    private NiceSpinner cityView;
+
     @Override
     protected void onCreateAfterDataPreparation(Bundle savedInstanceState) {
         setContentView(R.layout.activity_my_location);
@@ -41,13 +44,13 @@ public class MyLocationActivity extends PrepareDataActivity {
             }
         }
 
-        NiceSpinner country = (NiceSpinner) findViewById(R.id.country);
-        country.attachDataSource(countries);
-        country.setSelectedIndex(countries.indexOf(application.userCountry));
+        countryView = (NiceSpinner) findViewById(R.id.country);
+        countryView.attachDataSource(countries);
+        countryView.setSelectedIndex(countries.indexOf(application.userCountry));
 
         Log.i("MainActivity", "app.userCountry=" + application.userCountry);
 
-        final NiceSpinner cityView = (NiceSpinner) findViewById(R.id.city);
+        cityView = (NiceSpinner) findViewById(R.id.city);
         final List<String> cities = application.map.get(application.userCountry);
         cityView.attachDataSource(cities);
 
@@ -75,10 +78,11 @@ public class MyLocationActivity extends PrepareDataActivity {
     }
 
     public void onClickSearchApps(View view) {
-        String city = WumfApp.instance.userCity;
-        String country = WumfApp.instance.userCountry;
-        String placeId = FirebasePlaceUtils.generatePlaceId(country, city);
-        startActivity(new Intent(this, AppsActivity.class).putExtra(AppsActivity.PLACE_ID_KEY, placeId));
+        startActivity(new Intent(this, AppsActivity.class).putExtra(AppsActivity.PLACE_ID_KEY, getPickedPlaceId()));
+    }
+
+    private String getPickedPlaceId() {
+        return FirebasePlaceUtils.generatePlaceId(countryView.getText().toString(), cityView.getText().toString());
     }
 
 }

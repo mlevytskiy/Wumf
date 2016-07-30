@@ -32,7 +32,7 @@ public class AppsActivity extends AnimationActivity {
         placeId = getIntent().getExtras().getString(PLACE_ID_KEY);
 
         RealmRecyclerView realmRecyclerView = (RealmRecyclerView) findViewById(R.id.realm_recycler_view);
-        realmRecyclerView.setAdapter(new RemoteAppsAdapter(this));
+        realmRecyclerView.setAdapter(new RemoteAppsAdapter(this, placeId));
 
     }
 
