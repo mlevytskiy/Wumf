@@ -8,7 +8,6 @@ import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
 import io.wumf.wumf.activity.common.AnimationActivity;
 import io.wumf.wumf.adapter.RemoteAppsAdapter;
-import io.wumf.wumf.application.WumfApp;
 import io.wumf.wumf.firebase.pojo.App;
 import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
 import io.wumf.wumf.otto.BusProvider;
@@ -27,13 +26,11 @@ public class AppsActivity extends AnimationActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_apps);
 
-        WumfApp application = (WumfApp) getApplication();
-        FirebasePlaceUtils.loadAppsByPlace(application.userCountry, application.userCity);
         placeId = getIntent().getExtras().getString(PLACE_ID_KEY);
+        FirebasePlaceUtils.loadAppsByPlace(placeId);
 
         RealmRecyclerView realmRecyclerView = (RealmRecyclerView) findViewById(R.id.realm_recycler_view);
         realmRecyclerView.setAdapter(new RemoteAppsAdapter(this, placeId));
-
     }
 
     public void onStart() {

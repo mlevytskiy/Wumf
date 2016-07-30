@@ -37,8 +37,7 @@ public class FirebasePlaceUtils {
 
     private static int idsCount = 0;
 
-    public static void loadAppsByPlace(String country, String city) {
-        String placeId = generatePlaceId(country, city);
+    public static void loadAppsByPlace(String placeId) {
         final DatabaseReference placeRef = PLACE_REF.child(placeId);
         placeRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,6 +82,11 @@ public class FirebasePlaceUtils {
 
             }
         });
+    }
+
+    public static void loadAppsByPlace(String country, String city) {
+        String placeId = generatePlaceId(country, city);
+        loadAppsByPlace(placeId);
     }
 
 }

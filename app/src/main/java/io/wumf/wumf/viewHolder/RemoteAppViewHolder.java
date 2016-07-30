@@ -4,7 +4,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import io.wumf.wumf.R;
 import io.wumf.wumf.realmObject.RemoteApp;
@@ -25,7 +26,9 @@ public class RemoteAppViewHolder extends AnyRealmViewHolder<RemoteApp> {
 
     @Override
     public void bind(RemoteApp item) {
-        Picasso.with(itemView.getContext()).load(item.getIcon()).into(icon);
+        Glide.with(itemView.getContext()).load(item.getIcon())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(icon);
         label.setText(item.getName());
     }
 

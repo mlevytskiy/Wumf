@@ -68,6 +68,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.1'
 
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 
     compile project(':niceSpinner')
     compile project(':typefaceView')
