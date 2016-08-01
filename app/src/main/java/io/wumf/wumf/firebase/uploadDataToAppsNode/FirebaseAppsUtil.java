@@ -21,7 +21,9 @@ import java.util.List;
 
 import io.wumf.wumf.firebase.pojo.App;
 import io.wumf.wumf.firebase.uploadDataToAppsNode.pojo.FirebaseApp;
+import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
 import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.FirebaseLoadAppsFinishedEvent;
 import io.wumf.wumf.otto.event.FirebaseUploadStartedEvent;
 import io.wumf.wumf.otto.event.UploadDataPart1FinishedEvent;
 
@@ -35,9 +37,18 @@ public class FirebaseAppsUtil {
     private static boolean success = true;
     private static CountDown countDown;
 
-    private static void uploadTestData2(final List<App> apps) {
+    private static boolean isCityLoaded = false;
+    private static boolean isAppsLoaded = false;
+
+    private static String city;
+    private static String country;
+
+    private static List<App> myApps;
+
+    private static void uploadAppsAndPlace(final List<App> apps, String country, String city) {
         BusProvider.getInstance().post(new FirebaseUploadStartedEvent());
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("apps");
+        String placeId = FirebasePlaceUtils.generatePlaceId(country, city);
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("apps").child(placeId);
         countDown = new CountDown(apps.size());
 
         countDown.setZeroListener(new Runnable() {
@@ -82,7 +93,18 @@ public class FirebaseAppsUtil {
         }
     }
 
+    public static void upload(String country, String city) {
+        isCityLoaded = true;
+        if (isAppsLoaded) {
+            uploadAppsAndPlace(myApps, country, city);
+        } else {
+            FirebaseAppsUtil.country = country;
+            FirebaseAppsUtil.city = city;
+        }
+    }
+
     public static void upload(List<io.wumf.wumf.realmObject.App> apps) {
+        isAppsLoaded = true;
         List<App> newApps = new ArrayList<>();
         for (io.wumf.wumf.realmObject.App app : apps) {
             if (app.isSystemApp()) {
@@ -91,8 +113,33 @@ public class FirebaseAppsUtil {
                 newApps.add(new App(app.getPackageName(), app.getLabel(), app.getIconPath()));
             }
         }
+        if (isCityLoaded) {
+            uploadAppsAndPlace(newApps, FirebaseAppsUtil.country, FirebaseAppsUtil.city);
+        } else {
+            myApps = newApps;
+        }
+    }
 
-        uploadTestData2(newApps);
+    public static void loadAppsByPlace(String placeId) {
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("apps").child(placeId);
+        ref.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<App> apps = new ArrayList<App>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo.FirebaseApp firebaseApp = postSnapshot.getValue(io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo.FirebaseApp.class);
+                    apps.add( new App(key.replace(" ", "."), firebaseApp.getName(), firebaseApp.getIcon()) );
+                }
+                BusProvider.getInstance().post(new FirebaseLoadAppsFinishedEvent(apps));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private static void uploadIcon(final DatabaseReference ref, final App app) {

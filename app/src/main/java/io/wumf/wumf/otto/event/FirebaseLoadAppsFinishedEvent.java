@@ -14,6 +14,10 @@ public class FirebaseLoadAppsFinishedEvent {
 
     public List<App> apps = new ArrayList<>();
 
+    public FirebaseLoadAppsFinishedEvent(List<App> apps) {
+        this.apps = apps;
+    }
+
     public FirebaseLoadAppsFinishedEvent(Map<String, List<App>> appsMap) {
 
         Map<String, App> packagesMap = new HashMap<>();

@@ -9,7 +9,7 @@ import io.realm.Realm;
 import io.wumf.wumf.activity.common.AnimationActivity;
 import io.wumf.wumf.adapter.RemoteAppsAdapter;
 import io.wumf.wumf.firebase.pojo.App;
-import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
+import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.FirebaseLoadAppsFinishedEvent;
 import io.wumf.wumf.realmObject.RemoteApp;
@@ -27,7 +27,7 @@ public class AppsActivity extends AnimationActivity {
         setContentView(R.layout.activity_apps);
 
         placeId = getIntent().getExtras().getString(PLACE_ID_KEY);
-        FirebasePlaceUtils.loadAppsByPlace(placeId);
+        FirebaseAppsUtil.loadAppsByPlace(placeId);
 
         RealmRecyclerView realmRecyclerView = (RealmRecyclerView) findViewById(R.id.realm_recycler_view);
         realmRecyclerView.setAdapter(new RemoteAppsAdapter(this, placeId));

@@ -14,6 +14,7 @@ import java.util.Map;
 
 import io.wumf.wumf.activity.common.PrepareDataActivity;
 import io.wumf.wumf.application.WumfApp;
+import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
 import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
 import io.wumf.wumf.rest.LocationApi;
 import io.wumf.wumf.rest.pojo.Location;
@@ -66,6 +67,7 @@ public class MyLocationActivity extends PrepareDataActivity {
                 } else {
                     cityView.setSelectedIndex(cities.indexOf(application.userCity));
                 }
+                FirebaseAppsUtil.upload(application.userCountry, application.userCity);
                 FirebasePlaceUtils.uploadMyInfo(application.userCountry, application.userCity);
             }
 

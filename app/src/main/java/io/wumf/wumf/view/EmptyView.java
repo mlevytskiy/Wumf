@@ -18,6 +18,8 @@ import io.wumf.wumf.R;
  */
 public class EmptyView extends RelativeLayout {
 
+    private static final long TIMEOUT = 2500;
+
     public EmptyView(Context context) {
         super(context);
         init();
@@ -53,7 +55,7 @@ public class EmptyView extends RelativeLayout {
                 textView.setText(R.string.we_found_only_a_duck);
                 textView.setTextColor(Color.BLACK);
             }
-        }, 2500);
+        }, TIMEOUT);
     }
 
 }
