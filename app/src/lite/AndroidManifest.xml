@@ -17,7 +17,8 @@
         android:name=".application.WumfApp"
         android:theme="@style/MyTheme">
 
-        <activity android:name=".MyLocationActivity" >
+        <activity android:name=".MyLocationActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -25,15 +26,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.AppActivity" />
+        <activity android:name=".activity.AppActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".AppsActivity" />
+        <activity android:name=".AppsActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.FirebaseMainActivity" />
+        <activity android:name=".activity.FirebaseMainActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.FirebaseAppsActivity" />
+        <activity android:name=".activity.FirebaseAppsActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".broadcastReceiver.AddAppBR"
                   android:exported="true"

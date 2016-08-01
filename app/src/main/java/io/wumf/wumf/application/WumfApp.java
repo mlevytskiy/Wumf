@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -21,6 +22,7 @@ import java.util.Map;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.wumf.wumf.CountriesCodes;
+import io.wumf.wumf.R;
 import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
 import io.wumf.wumf.firebase.uploadDataToPhonesNode.FirebasePhonesUtil;
 import io.wumf.wumf.memory.Memory;
@@ -41,6 +43,7 @@ public class WumfApp extends Application {
     private static final String TAG = WumfApp.class.getSimpleName();
     public static WumfApp instance;
     private static final String REALM_DATABASE = "myrealm.realm";
+    private static final String UNKNOWN = "UNKNOWN";
     private static final int REALM_VERSION = 42;
     public Map<PhoneNumberProvider, String> phones;
     public Map<String, List<String>> map;
@@ -59,9 +62,8 @@ public class WumfApp extends Application {
         Contacts.initialize(this);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        InputStream ins = getResources().openRawResource(
-                getResources().getIdentifier("countries_to_cities",
-                        "raw", getPackageName()));
+
+        InputStream ins = getResources().openRawResource(R.raw.countries_to_cities);
 
         TypeReference<HashMap<String, List<String>>> typeRef
                 = new TypeReference<HashMap<String, List<String>>>() {};
@@ -71,12 +73,20 @@ public class WumfApp extends Application {
         } catch (IOException e) {
             Log.e(TAG, e.getMessage());
         }
-        userCountry = CountriesCodes.map.get(getUserCountryCode(this).toUpperCase());
+        String userCountryCode = getUserCountryCode(this).toUpperCase();
+        if (TextUtils.equals(UNKNOWN, userCountryCode)) {
+
+        } else {
+            userCountry = CountriesCodes.map.get(userCountryCode);
+        }
     }
 
     private static String getUserCountryCode(Context context) {
         try {
             final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if ( !hasSimCard(tm) ) {
+                return UNKNOWN;
+            }
             final String simCountry = tm.getSimCountryIso();
             if (simCountry != null && simCountry.length() == 2) { // SIM country code is available
                 return simCountry.toLowerCase(Locale.US);
@@ -90,6 +100,10 @@ public class WumfApp extends Application {
         }
         catch (Exception e) { }
         return null;
+    }
+
+    private static boolean hasSimCard(TelephonyManager tm) {
+        return  (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT);
     }
 
     public void initRealm() {

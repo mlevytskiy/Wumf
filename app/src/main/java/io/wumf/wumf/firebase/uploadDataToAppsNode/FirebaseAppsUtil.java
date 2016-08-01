@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.wumf.wumf.application.WumfApp;
 import io.wumf.wumf.firebase.pojo.App;
 import io.wumf.wumf.firebase.uploadDataToAppsNode.pojo.FirebaseApp;
 import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
@@ -73,13 +74,14 @@ public class FirebaseAppsUtil {
                         //check need add my phone or no.
                         FirebaseApp firebaseApp = dataSnapshot.getValue(FirebaseApp.class);
                         app.setPublicIconPath(firebaseApp.getIcon());
-                        String myPhone = app.getFirebaseValueDataPart1().getPhones().get(0);
-                        if (firebaseApp.getPhones().contains(myPhone)) {
+
+                        if (firebaseApp.getPhones().contains(WumfApp.instance.androidId)) {
                             //do nothing
                         } else {
                             int size = firebaseApp.getPhones().size();
-                            ref.child(app.getFirebaseKey()).child("phones").child(String.valueOf(size)).setValue(myPhone);
+                            ref.child(app.getFirebaseKey()).child("phones").child(String.valueOf(size)).setValue(WumfApp.instance.androidId);
                         }
+
                     }
                     ref.child(app.getFirebaseKey()).removeEventListener(this);
                 }

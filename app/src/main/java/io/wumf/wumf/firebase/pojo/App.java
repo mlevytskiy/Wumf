@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.wumf.wumf.application.WumfApp;
 import io.wumf.wumf.firebase.uploadDataToAppsNode.pojo.FirebaseApp;
 import io.wumf.wumf.memory.Memory;
 
@@ -47,7 +48,7 @@ public class App {
             firebaseApp.setIcon(publicIconPath);
         }
         List<String> phones = new ArrayList<>();
-        phones.add(Memory.INSTANCE.getPhone());
+        phones.add(WumfApp.instance.androidId);
         firebaseApp.setPhones(phones);
         return firebaseApp;
     }

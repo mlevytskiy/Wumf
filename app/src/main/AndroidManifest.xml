@@ -19,7 +19,8 @@
         android:theme="@style/MyTheme">
 
         <activity android:name=".activity.EnterYourPhoneNumberActivity"
-                  tools:node="remove">
+                  tools:node="remove"
+                  android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -27,13 +28,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.AppActivity" />
+        <activity android:name=".activity.AppActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.FirebaseMainActivity" />
+        <activity android:name=".activity.FirebaseMainActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.FirebaseAppsActivity" />
+        <activity android:name=".activity.FirebaseAppsActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".broadcastReceiver.AddAppBR"
                   android:exported="true"

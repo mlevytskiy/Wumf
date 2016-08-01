@@ -31,13 +31,14 @@ public class MyLocationActivity extends PrepareDataActivity {
 
     private NiceSpinner countryView;
     private NiceSpinner cityView;
+    private List<String> cities;
 
     @Override
     protected void onCreateAfterDataPreparation(Bundle savedInstanceState) {
         setContentView(R.layout.activity_my_location);
 
         final WumfApp application = (WumfApp) getApplication();
-        List<String> countries = new ArrayList<>();
+        final List<String> countries = new ArrayList<>();
         for (Map.Entry<String, List<String>> entry : application.map.entrySet()) {
             String country = entry.getKey();
             if ( !TextUtils.isEmpty(country) ) {
@@ -47,19 +48,28 @@ public class MyLocationActivity extends PrepareDataActivity {
 
         countryView = (NiceSpinner) findViewById(R.id.country);
         countryView.attachDataSource(countries);
-        countryView.setSelectedIndex(countries.indexOf(application.userCountry));
-
-        Log.i("MainActivity", "app.userCountry=" + application.userCountry);
-
         cityView = (NiceSpinner) findViewById(R.id.city);
-        final List<String> cities = application.map.get(application.userCountry);
-        cityView.attachDataSource(cities);
+        if ( TextUtils.isEmpty(application.userCountry) ) {
+            //do nothing
+        } else {
+            countryView.setSelectedIndex(countries.indexOf(application.userCountry));
+            cities = application.map.get(application.userCountry);
+            cityView.attachDataSource(cities);
+        }
 
         LocationApi locationApi = new LocationApi.Builder().build();
         locationApi.getLoc().enqueue(new Callback<Location>() {
             @Override
             public void onResponse(Call<Location> call, Response<Location> response) {
                 application.userCity = response.body().getCity();
+                if ( TextUtils.isEmpty(application.userCountry) ) {
+                    application.userCountry = CountriesCodes.map.get(response.body().getCountry());
+                    countryView.setSelectedIndex(countries.indexOf(application.userCountry));
+                    cities = application.map.get(application.userCountry);
+                    cityView.attachDataSource(cities);
+                } else {
+                    //do nothing
+                }
                 Log.i(TAG, "userCity=" + application.userCity);
                 if (TextUtils.isEmpty(application.userCity)) {
                     application.userCity = cities.get(0);
