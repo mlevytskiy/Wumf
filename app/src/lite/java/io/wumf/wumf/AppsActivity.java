@@ -54,6 +54,7 @@ public class AppsActivity extends AnimationActivity {
             remoteApp.setIcon(app.icon);
             remoteApp.setPackageName(app.packageName);
             remoteApp.setRegionId(placeId);
+            remoteApp.setUsersCount(app.usersCount);
             Realm.getDefaultInstance().copyToRealmOrUpdate(remoteApp);
         }
         Realm.getDefaultInstance().commitTransaction();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 
 import io.realm.Realm;
+import io.realm.Sort;
 import io.wumf.wumf.realmObject.RemoteApp;
 import io.wumf.wumf.viewHolder.RemoteAppViewHolder;
 
@@ -13,7 +14,9 @@ import io.wumf.wumf.viewHolder.RemoteAppViewHolder;
 public class RemoteAppsAdapter extends  AnyRealmAdapter<RemoteApp, RemoteAppViewHolder> {
 
     public RemoteAppsAdapter(Context context, String placeId) {
-        super(context, Realm.getDefaultInstance().where(RemoteApp.class).equalTo("regionId", placeId).findAll());
+        super(context, Realm.getDefaultInstance().where(RemoteApp.class)
+                .equalTo("regionId", placeId)
+                .findAllSorted("usersCount", Sort.DESCENDING));
     }
 
     @Override

@@ -13,6 +13,7 @@ public class RemoteApp extends RealmObject {
     private String icon;
     private String name;
     private String regionId;
+    private int usersCount;
 
     public String getPackageName() {
         return packageName;
@@ -46,4 +47,11 @@ public class RemoteApp extends RealmObject {
         this.regionId = regionId;
     }
 
+    public int getUsersCount() {
+        return usersCount;
+    }
+
+    public void setUsersCount(int usersCount) {
+        this.usersCount = usersCount;
+    }
 }
