@@ -19,6 +19,7 @@ public class App extends RealmObject {
     private RealmList<Event> events;
     private String apkFilePath;
     private boolean systemApp = false;
+    private int usersCount = 1;
 
     public String getPackageName() {
         return packageName;
@@ -92,4 +93,11 @@ public class App extends RealmObject {
         this.systemApp = systemApp;
     }
 
+    public int getUsersCount() {
+        return usersCount;
+    }
+
+    public void setUsersCount(int usersCount) {
+        this.usersCount = usersCount;
+    }
 }

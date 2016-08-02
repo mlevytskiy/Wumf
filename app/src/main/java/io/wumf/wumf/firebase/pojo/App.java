@@ -7,7 +7,6 @@ import java.util.List;
 
 import io.wumf.wumf.application.WumfApp;
 import io.wumf.wumf.firebase.uploadDataToAppsNode.pojo.FirebaseApp;
-import io.wumf.wumf.memory.Memory;
 
 /**
  * Created by max on 28.06.16.
@@ -20,11 +19,13 @@ public class App {
     public final String name;
     public final String icon; //inner path when we start upload and firebase storage parth after
     private String publicIconPath;
+    public final int usersCount;
 
-    public App(String packageName, String name, String icon) {
+    public App(String packageName, String name, String icon, int usersCount) {
         this.packageName = packageName;
         this.name = name;
         this.icon = icon;
+        this.usersCount = usersCount;
     }
 
     public String getPublicIconPath() {

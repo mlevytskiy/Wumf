@@ -112,7 +112,7 @@ public class FirebaseAppsUtil {
             if (app.isSystemApp()) {
                 //do nothing
             } else {
-                newApps.add(new App(app.getPackageName(), app.getLabel(), app.getIconPath()));
+                newApps.add(new App(app.getPackageName(), app.getLabel(), app.getIconPath(), app.getUsersCount()));
             }
         }
         if (isCityLoaded) {
@@ -132,7 +132,7 @@ public class FirebaseAppsUtil {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
                     io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo.FirebaseApp firebaseApp = postSnapshot.getValue(io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo.FirebaseApp.class);
-                    apps.add( new App(key.replace(" ", "."), firebaseApp.getName(), firebaseApp.getIcon()) );
+                    apps.add( new App(key.replace(" ", "."), firebaseApp.getName(), firebaseApp.getIcon(), firebaseApp.getPhones().size()) );
                 }
                 BusProvider.getInstance().post(new FirebaseLoadAppsFinishedEvent(apps));
             }

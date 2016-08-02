@@ -1,5 +1,7 @@
 package io.wumf.wumf.firebase.uploadDataToPhonesNode.pojo;
 
+import java.util.List;
+
 /**
  * Created by max on 04.07.16.
  */
@@ -7,6 +9,7 @@ public class FirebaseApp {
 
     private String name;
     private String icon;
+    private List<String> phones;
 
     public String getName() {
         return name;
@@ -24,4 +27,11 @@ public class FirebaseApp {
         this.icon = icon;
     }
 
+    public List<String> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<String> phones) {
+        this.phones = phones;
+    }
 }
