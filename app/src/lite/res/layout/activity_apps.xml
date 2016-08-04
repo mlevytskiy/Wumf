@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white" >
+    android:background="@android:color/white"
+    android:orientation="vertical" >
 
-    <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
-        android:id="@+id/realm_recycler_view"
+    <io.wumf.wumf.view.CustomTopBar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:rrvIsRefreshable="false"
-        app:rrvEmptyLayoutId="@layout/empty_view"
-        app:rrvLayoutType="Grid"
-        app:rrvGridLayoutSpanCount="3"
-        android:layout_margin="2dp"
-        android:background="@android:color/transparent" />
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:paddingBottom="0dp"/>
 
-</RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="#7f000000" />
+
+        <co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView
+            android:id="@+id/realm_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rrvIsRefreshable="false"
+            app:rrvEmptyLayoutId="@layout/empty_view"
+            app:rrvLayoutType="Grid"
+            app:rrvGridLayoutSpanCount="3"
+            android:layout_margin="2dp"
+            android:background="@android:color/transparent" />
+
+    </FrameLayout>
+
+</LinearLayout>
