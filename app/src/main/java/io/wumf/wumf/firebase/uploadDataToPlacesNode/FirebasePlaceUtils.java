@@ -22,6 +22,10 @@ public class FirebasePlaceUtils {
         PLACE_REF.child(placeId).child(WumfApp.instance.androidId).setValue("");
     }
 
+    public static void loadUsersCountByPlace(String placeId) {
+        PLACE_REF.child(placeId).
+    }
+
     private static int idsCount = 0;
 
 //    public static void loadAppsByPlace(String placeId) {
