@@ -13,6 +13,7 @@ import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.FirebaseLoadAppsFinishedEvent;
 import io.wumf.wumf.realmObject.RemoteApp;
+import io.wumf.wumf.view.CustomTopBar;
 
 /**
  * Created by max on 22.07.16.
@@ -21,6 +22,7 @@ public class AppsActivity extends AnimationActivity {
 
     public static String PLACE_ID_KEY = "regionIdKey";
     private String placeId;
+    private CustomTopBar topBar;
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -31,18 +33,21 @@ public class AppsActivity extends AnimationActivity {
 
         RealmRecyclerView realmRecyclerView = (RealmRecyclerView) findViewById(R.id.realm_recycler_view);
         realmRecyclerView.setAdapter(new RemoteAppsAdapter(this, placeId));
+
+        topBar = (CustomTopBar) findViewById(R.id.top_panel);
+        topBar.setText("UA", "Kiev", 12);
     }
 
     public void onStart() {
         super.onStart();
         BusProvider.getInstance().register(this);
-
+        topBar.bind(this);
     }
 
     public void onStop() {
         super.onStop();
         BusProvider.getInstance().unregister(this);
-
+        topBar.unbind();
     }
 
     @Subscribe

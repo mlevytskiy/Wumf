@@ -23,7 +23,7 @@ public class FirebasePlaceUtils {
     }
 
     public static void loadUsersCountByPlace(String placeId) {
-        PLACE_REF.child(placeId).
+//        PLACE_REF.child(placeId).
     }
 
     private static int idsCount = 0;
