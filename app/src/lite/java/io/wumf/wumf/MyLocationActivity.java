@@ -1,16 +1,25 @@
 package io.wumf.wumf;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.angmarch.views.NiceSpinner;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.regex.Pattern;
 
 import io.wumf.wumf.activity.common.PrepareDataActivity;
 import io.wumf.wumf.application.WumfApp;
@@ -32,29 +41,55 @@ public class MyLocationActivity extends PrepareDataActivity {
     private NiceSpinner countryView;
     private NiceSpinner cityView;
     private List<String> cities;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreateAfterDataPreparation(Bundle savedInstanceState) {
         setContentView(R.layout.activity_my_location);
 
         final WumfApp application = (WumfApp) getApplication();
-        final List<String> countries = new ArrayList<>();
-        for (Map.Entry<String, List<String>> entry : application.map.entrySet()) {
-            String country = entry.getKey();
-            if ( !TextUtils.isEmpty(country) ) {
-                countries.add(country);
-            }
-        }
+        final List<String> countries = getCountries();
 
         countryView = (NiceSpinner) findViewById(R.id.country);
         countryView.attachDataSource(countries);
+
+        countryView.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                try {
+                    cities = Arrays.asList(findCities(countries.get(position)));
+                    if (cities.isEmpty()) {
+                        Toast.makeText(MyLocationActivity.this, "heppend some error", Toast.LENGTH_LONG).show();
+                    } else {
+                        cityView.attachDataSource(cities);
+                    }
+                } catch (IOException e) {
+                    Log.e(TAG, e.getMessage());
+                }
+
+            }
+
+        });
+
         cityView = (NiceSpinner) findViewById(R.id.city);
-        if ( TextUtils.isEmpty(application.userCountry) ) {
+        if (TextUtils.isEmpty(application.userCountry)) {
             //do nothing
         } else {
             countryView.setSelectedIndex(countries.indexOf(application.userCountry));
-            cities = application.map.get(application.userCountry);
-            cityView.attachDataSource(cities);
+
+            try {
+                cities = Arrays.asList(findCities(application.userCountry));
+                cityView.attachDataSource(cities);
+            } catch (IOException e) {
+                Log.e(TAG, e.getMessage());
+            }
+
         }
 
         LocationApi locationApi = new LocationApi.Builder().build();
@@ -62,11 +97,17 @@ public class MyLocationActivity extends PrepareDataActivity {
             @Override
             public void onResponse(Call<Location> call, Response<Location> response) {
                 application.userCity = response.body().getCity();
-                if ( TextUtils.isEmpty(application.userCountry) ) {
+                if (TextUtils.isEmpty(application.userCountry)) {
                     application.userCountry = CountriesCodes.map.get(response.body().getCountry());
                     countryView.setSelectedIndex(countries.indexOf(application.userCountry));
-                    cities = application.map.get(application.userCountry);
-                    cityView.attachDataSource(cities);
+
+                    try {
+                        cities = Arrays.asList( findCities(application.userCountry) );
+                        cityView.attachDataSource(cities);
+                    } catch (IOException e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+
                 } else {
                     //do nothing
                 }
@@ -93,8 +134,54 @@ public class MyLocationActivity extends PrepareDataActivity {
         startActivity(new Intent(this, AppsActivity.class).putExtra(AppsActivity.PLACE_ID_KEY, getPickedPlaceId()));
     }
 
+    private List<String> getCountries() {
+        return new ArrayList<>(new HashSet<>(CountriesCodes.map.values()));
+    }
+
     private String getPickedPlaceId() {
         return FirebasePlaceUtils.generatePlaceId(countryView.getText().toString(), cityView.getText().toString());
     }
 
+    private String[] findCities(String country) throws IOException {
+        String[] files = getAssets().list("");
+        for (String fileName : files) {
+            if (TextUtils.equals(fileName, country)) {
+                String citiesStr = readAssetsFileAsString(fileName);
+                if (TextUtils.isEmpty(citiesStr)) {
+                    return new String[0];
+                }
+                if (citiesStr.contains("|")) {
+                    String[] result = citiesStr.split(Pattern.quote("|"));
+                    return result;
+                } else {
+                    return new String[] { citiesStr };
+                }
+            }
+        }
+        return new String[0];
+    }
+
+    private String readAssetsFileAsString(String fileName) { //only for small text file
+        AssetManager assetManager = getAssets();
+        InputStream input;
+        String text = null;
+
+        try {
+            input = assetManager.open(fileName);
+
+            int size = input.available();
+            byte[] buffer = new byte[size];
+            input.read(buffer);
+            input.close();
+
+            // byte buffer into a string
+            text = new String(buffer);
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return text;
+    }
 }

@@ -5,24 +5,16 @@ import android.content.Context;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tamir7.contacts.Contacts;
 import com.squareup.otto.Subscribe;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.wumf.wumf.CountriesCodes;
-import io.wumf.wumf.R;
 import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
 import io.wumf.wumf.firebase.uploadDataToPhonesNode.FirebasePhonesUtil;
 import io.wumf.wumf.memory.Memory;
@@ -46,7 +38,7 @@ public class WumfApp extends Application {
     private static final String UNKNOWN = "UNKNOWN";
     private static final int REALM_VERSION = 42;
     public Map<PhoneNumberProvider, String> phones;
-    public Map<String, List<String>> map;
+//    public Map<String, List<String>> map;
     public String userCountry;
     public String userCity;
     public String androidId;
@@ -61,18 +53,6 @@ public class WumfApp extends Application {
         Memory.INSTANCE.init(this);
         Contacts.initialize(this);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        InputStream ins = getResources().openRawResource(R.raw.countries_to_cities);
-
-        TypeReference<HashMap<String, List<String>>> typeRef
-                = new TypeReference<HashMap<String, List<String>>>() {};
-
-        try {
-            map = objectMapper.readValue(ins, typeRef);
-        } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
-        }
         String userCountryCode = getUserCountryCode(this).toUpperCase();
         if (TextUtils.equals(UNKNOWN, userCountryCode)) {
 
