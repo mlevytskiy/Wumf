@@ -1,7 +1,10 @@
 package io.wumf.wumf.firebase.uploadDataToPlacesNode;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import io.wumf.wumf.application.WumfApp;
 
@@ -22,8 +25,22 @@ public class FirebasePlaceUtils {
         PLACE_REF.child(placeId).child(WumfApp.instance.androidId).setValue("");
     }
 
-    public static void loadUsersCountByPlace(String placeId) {
-//        PLACE_REF.child(placeId).
+    public static void loadUsersCountByPlace(String placeId, final UsersCountListener listener) {
+        PLACE_REF.child(placeId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int size = 0;
+                for(DataSnapshot child : dataSnapshot.getChildren()) {
+                    size++;
+                }
+                listener.getResult(size);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private static int idsCount = 0;

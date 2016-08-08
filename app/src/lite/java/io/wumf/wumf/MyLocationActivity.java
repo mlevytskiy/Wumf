@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-
 import org.angmarch.views.NiceSpinner;
 
 import java.io.IOException;
@@ -41,11 +39,6 @@ public class MyLocationActivity extends PrepareDataActivity {
     private NiceSpinner countryView;
     private NiceSpinner cityView;
     private List<String> cities;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreateAfterDataPreparation(Bundle savedInstanceState) {
@@ -131,15 +124,23 @@ public class MyLocationActivity extends PrepareDataActivity {
     }
 
     public void onClickSearchApps(View view) {
-        startActivity(new Intent(this, AppsActivity.class).putExtra(AppsActivity.PLACE_ID_KEY, getPickedPlaceId()));
+        String[] strs = getPickedPlaceId();
+        startActivity(new Intent(this, AppsActivity.class)
+                .putExtra(AppsActivity.PLACE_ID_KEY, strs[2])
+                .putExtra(AppsActivity.COUNTRY_KEY, strs[0])
+                .putExtra(AppsActivity.CITY_KEY, strs[1]));
     }
 
     private List<String> getCountries() {
         return new ArrayList<>(new HashSet<>(CountriesCodes.map.values()));
     }
 
-    private String getPickedPlaceId() {
-        return FirebasePlaceUtils.generatePlaceId(countryView.getText().toString(), cityView.getText().toString());
+    private String[] getPickedPlaceId() {
+        String[] strs = new String[3];
+        strs[0] = countryView.getText().toString();
+        strs[1] = cityView.getText().toString();
+        strs[2] = FirebasePlaceUtils.generatePlaceId(strs[0], strs[1]);
+        return strs;
     }
 
     private String[] findCities(String country) throws IOException {

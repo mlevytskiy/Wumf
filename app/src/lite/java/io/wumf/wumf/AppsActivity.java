@@ -1,8 +1,11 @@
 package io.wumf.wumf;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.squareup.otto.Subscribe;
+
+import java.util.Map;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
@@ -10,6 +13,8 @@ import io.wumf.wumf.activity.common.AnimationActivity;
 import io.wumf.wumf.adapter.RemoteAppsAdapter;
 import io.wumf.wumf.firebase.pojo.App;
 import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
+import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
+import io.wumf.wumf.firebase.uploadDataToPlacesNode.UsersCountListener;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.FirebaseLoadAppsFinishedEvent;
 import io.wumf.wumf.realmObject.RemoteApp;
@@ -20,8 +25,12 @@ import io.wumf.wumf.view.CustomTopBar;
  */
 public class AppsActivity extends AnimationActivity {
 
-    public static String PLACE_ID_KEY = "regionIdKey";
+    public static final String PLACE_ID_KEY = "regionIdKey";
+    public static final String CITY_KEY = "city";
+    public static final String COUNTRY_KEY = "country";
+
     private String placeId;
+
     private CustomTopBar topBar;
 
     public void onCreate(Bundle bundle) {
@@ -35,7 +44,18 @@ public class AppsActivity extends AnimationActivity {
         realmRecyclerView.setAdapter(new RemoteAppsAdapter(this, placeId));
 
         topBar = (CustomTopBar) findViewById(R.id.top_panel);
-        topBar.setText("UA", "Kiev", 12);
+
+        final String country = getIntent().getExtras().getString(COUNTRY_KEY);
+        final String city = getIntent().getExtras().getString(CITY_KEY);
+        topBar.setText(country, city, 0);
+
+        FirebasePlaceUtils.loadUsersCountByPlace(placeId, new UsersCountListener() {
+            @Override
+            public void getResult(int usersCount) {
+                final String countryCode = getCountryCode(country);
+                topBar.setText(countryCode, city, usersCount);
+            }
+        });
     }
 
     public void onStart() {
@@ -63,6 +83,22 @@ public class AppsActivity extends AnimationActivity {
             Realm.getDefaultInstance().copyToRealmOrUpdate(remoteApp);
         }
         Realm.getDefaultInstance().commitTransaction();
+    }
+
+    private String getCountryCode(String country) {
+        String[] codes = new String[2];
+        for (Map.Entry<String, String> entry : CountriesCodes.map.entrySet()) {
+            if (TextUtils.equals(country, entry.getValue())) {
+                if ( TextUtils.isEmpty(codes[0]) ) {
+                    codes[0] =  entry.getKey();
+                } else {
+                    codes[1] = entry.getKey();
+                    return (codes[0].length() < codes[1].length()) ?
+                            codes[0] : codes[1];
+                }
+            }
+        }
+        return "";
     }
 
 }
