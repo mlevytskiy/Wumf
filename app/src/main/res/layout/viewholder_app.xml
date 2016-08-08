@@ -30,7 +30,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:lines="2" />
+            android:lines="2"
+            android:textSize="14dp"
+            android:textColor="@android:color/black"
+            app:tv_typeface="roboto_light" />
 
         <View
             android:layout_width="match_parent"
@@ -53,29 +56,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
 
-                <LinearLayout
+                <io.wumf.wumf.view.UsersCountTextView
+                    android:id="@+id/count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center" >
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_person"
-                        android:background="@android:color/transparent" />
-
-                    <TextView
-                        android:id="@+id/count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1"
-                        android:textSize="26dp"
-                        android:textColor="#4452BA"
-                        android:includeFontPadding="false" />
-
-                </LinearLayout>
+                    android:textSize="16dp"
+                    android:textColor="#4452BA" />
 
                 <View
                     android:layout_width="0dp"

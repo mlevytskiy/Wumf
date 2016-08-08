@@ -9,7 +9,7 @@ import io.wumf.wumf.realmObject.App;
 /**
  * Created by max on 30.03.16.
  */
-public class LabelTextView extends TextView {
+public class LabelTextView extends com.github.omadahealth.typefaceview.TypefaceTextView {
 
     public LabelTextView(Context context) {
         super(context);

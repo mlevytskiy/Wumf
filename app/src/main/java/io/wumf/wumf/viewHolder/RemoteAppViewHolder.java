@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import io.wumf.wumf.R;
 import io.wumf.wumf.realmObject.RemoteApp;
+import io.wumf.wumf.view.UsersCountTextView;
 
 /**
  * Created by max on 22.07.16.
@@ -17,13 +18,13 @@ public class RemoteAppViewHolder extends AnyRealmViewHolder<RemoteApp> {
 
     private ImageView icon;
     private TextView label;
-    private TextView count;
+    private UsersCountTextView count;
 
     public RemoteAppViewHolder(ViewGroup parent) {
         super(parent, R.layout.viewholder_app);
         icon = (ImageView) itemView.findViewById(R.id.icon);
         label = (TextView) itemView.findViewById(R.id.label);
-        count = (TextView) itemView.findViewById(R.id.count);
+        count = (UsersCountTextView) itemView.findViewById(R.id.count);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class RemoteAppViewHolder extends AnyRealmViewHolder<RemoteApp> {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(icon);
         label.setText(item.getName());
-        count.setText( String.valueOf(item.getUsersCount()) );
+        count.setCount(item.getUsersCount());
     }
 
 }
