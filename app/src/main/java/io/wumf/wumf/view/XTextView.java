@@ -1,6 +1,7 @@
 package io.wumf.wumf.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.SpannableStringBuilder;
@@ -33,7 +34,8 @@ public class XTextView extends com.github.omadahealth.typefaceview.TypefaceTextV
 
         SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
 
-        RoundedBackgroundSpan roundedBackgroundSpan = new RoundedBackgroundSpan();
+        RoundedBackgroundSpan roundedBackgroundSpan = new RoundedBackgroundSpan(Color.parseColor("#f7e0e3"),
+                getResources().getDimension(R.dimen.round_corner));
         float countrySize = getPaint().measureText(country);
         float spaceSize = getPaint().measureText(" ");
         roundedBackgroundSpan.addRect(spaceSize/2, countrySize + spaceSize/2 + spaceSize);
@@ -62,7 +64,7 @@ public class XTextView extends com.github.omadahealth.typefaceview.TypefaceTextV
 
         Drawable dr = getResources().getDrawable(R.drawable.ic_person);
         dr.setBounds(0, 0, getLineHeight(), getLineHeight());
-        dr.setColorFilter(0xff000000, PorterDuff.Mode.MULTIPLY);
+        dr.setColorFilter(getCurrentTextColor(), PorterDuff.Mode.MULTIPLY);
         ImageSpan imageSpan = new ImageSpan(dr);
         stringBuilder.setSpan( imageSpan, startIndexForCount, startIndexForCount+1, SpannableStringBuilder.SPAN_INCLUSIVE_EXCLUSIVE );
 

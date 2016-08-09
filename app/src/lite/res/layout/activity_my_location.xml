@@ -63,13 +63,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_red_dark"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/search_container"
         android:orientation="vertical"
+        android:layout_marginTop="45dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent" >
 
         <View
             android:layout_width="match_parent"
@@ -81,19 +82,34 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <TextView
+            <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="unlike" />
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-            <TextView
-                android:layout_width="0dp"
+            <io.wumf.wumf.view.ClickableTextView
+                android:id="@+id/unlike"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="like" />
+                android:text="unlike"
+                app:tv_typeface="roboto_light" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <io.wumf.wumf.view.ClickableTextView
+                android:id="@+id/like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="like"
+                app:tv_typeface="roboto_light" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -105,21 +121,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:descendantFocusability="blocksDescendants" >
 
-            <TextView
+            <View
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="my wall" />
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-            <TextView
-                android:layout_width="0dp"
+            <io.wumf.wumf.view.ClickableTextView
+                android:id="@+id/my_wall"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="follow" />
+                android:text="my wall"
+                app:tv_typeface="roboto_light" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <io.wumf.wumf.view.ClickableTextView
+                android:id="@+id/follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="follow"
+                app:tv_typeface="roboto_light" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
         </LinearLayout>
 

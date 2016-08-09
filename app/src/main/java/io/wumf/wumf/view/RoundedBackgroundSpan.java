@@ -20,7 +20,14 @@ import java.util.List;
  */
 public class RoundedBackgroundSpan extends ReplacementSpan {
 
+    private int color;
     private List<Rect> rects = new ArrayList<>();
+    private float roundCorner;
+
+    public RoundedBackgroundSpan(int color, float roundCorner) {
+        this.color = color;
+        this.roundCorner = roundCorner;
+    }
 
     @Override
     public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
@@ -32,10 +39,14 @@ public class RoundedBackgroundSpan extends ReplacementSpan {
 
         for (Rect rect : rects) {
             RectF rectF = new RectF(rect.x1, top, rect.x2, bottom);
-            paint.setColor(Color.parseColor("#f7e0e3"));
-            canvas.drawRoundRect(rectF, 20, 20, paint);
+            paint.setColor(color);
+            canvas.drawRoundRect(rectF, roundCorner, roundCorner, paint);
         }
 
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public void addRect(float x1, float x2) {

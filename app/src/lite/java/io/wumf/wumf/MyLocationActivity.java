@@ -25,6 +25,7 @@ import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
 import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
 import io.wumf.wumf.rest.LocationApi;
 import io.wumf.wumf.rest.pojo.Location;
+import io.wumf.wumf.view.ClickableTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -121,6 +122,21 @@ public class MyLocationActivity extends PrepareDataActivity {
             }
 
         });
+        initCollaborationMenu();
+    }
+
+    private void initCollaborationMenu() {
+        ClickableTextView unlike = (ClickableTextView) findViewById(R.id.unlike);
+        unlike.setCustomText(unlike.getText().toString());
+
+        ClickableTextView like = (ClickableTextView) findViewById(R.id.like);
+        like.setCustomText(like.getText().toString());
+
+        ClickableTextView myWall = (ClickableTextView) findViewById(R.id.my_wall);
+        myWall.setCustomText(myWall.getText().toString());
+
+        ClickableTextView follow = (ClickableTextView) findViewById(R.id.follow);
+        follow.setCustomText(follow.getText().toString());
     }
 
     public void onClickSearchApps(View view) {
