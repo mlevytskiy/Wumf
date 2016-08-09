@@ -58,7 +58,7 @@ public class MyLocationActivity extends PrepareDataActivity {
                 try {
                     cities = Arrays.asList(findCities(countries.get(position)));
                     if (cities.isEmpty()) {
-                        Toast.makeText(MyLocationActivity.this, "heppend some error", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MyLocationActivity.this, "happened some error", Toast.LENGTH_LONG).show();
                     } else {
                         cityView.attachDataSource(cities);
                     }
