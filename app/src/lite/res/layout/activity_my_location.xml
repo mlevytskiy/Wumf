@@ -65,99 +65,41 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/search_container"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_marginTop="45dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@android:color/transparent" >
+        android:background="@android:color/transparent"
+        android:gravity="center">
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <io.wumf.wumf.view.ClickableTextView
+            android:id="@+id/my_wall"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <io.wumf.wumf.view.ClickableTextView
-                android:id="@+id/unlike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="unlike"
-                app:tv_typeface="roboto_light" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <io.wumf.wumf.view.ClickableTextView
-                android:id="@+id/like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="like"
-                app:tv_typeface="roboto_light" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-        </LinearLayout>
+            android:text="my wall"
+            app:tv_typeface="roboto_light" />
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <io.wumf.wumf.view.ClickableTextView
+            android:id="@+id/follow"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:descendantFocusability="blocksDescendants" >
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <io.wumf.wumf.view.ClickableTextView
-                android:id="@+id/my_wall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="my wall"
-                app:tv_typeface="roboto_light" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <io.wumf.wumf.view.ClickableTextView
-                android:id="@+id/follow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="follow"
-                app:tv_typeface="roboto_light" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-        </LinearLayout>
+            android:text="follow"
+            app:tv_typeface="roboto_light" />
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1" />
 
     </LinearLayout>

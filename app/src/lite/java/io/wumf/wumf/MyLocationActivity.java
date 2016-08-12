@@ -126,12 +126,6 @@ public class MyLocationActivity extends PrepareDataActivity {
     }
 
     private void initCollaborationMenu() {
-        ClickableTextView unlike = (ClickableTextView) findViewById(R.id.unlike);
-        unlike.setCustomText(unlike.getText().toString());
-
-        ClickableTextView like = (ClickableTextView) findViewById(R.id.like);
-        like.setCustomText(like.getText().toString());
-
         ClickableTextView myWall = (ClickableTextView) findViewById(R.id.my_wall);
         myWall.setCustomText(myWall.getText().toString());
 
