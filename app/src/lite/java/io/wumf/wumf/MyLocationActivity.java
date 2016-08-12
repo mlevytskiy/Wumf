@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import io.wumf.wumf.activity.MainActivity;
 import io.wumf.wumf.activity.common.PrepareDataActivity;
 import io.wumf.wumf.application.WumfApp;
 import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
@@ -128,6 +129,12 @@ public class MyLocationActivity extends PrepareDataActivity {
     private void initCollaborationMenu() {
         ClickableTextView myWall = (ClickableTextView) findViewById(R.id.my_wall);
         myWall.setCustomText(myWall.getText().toString());
+        myWall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyLocationActivity.this, MainActivity.class));
+            }
+        });
 
         ClickableTextView follow = (ClickableTextView) findViewById(R.id.follow);
         follow.setCustomText(follow.getText().toString());

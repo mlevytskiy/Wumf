@@ -72,6 +72,7 @@ dependencies {
 
     compile project(':niceSpinner')
     compile project(':typefaceView')
+    compile project(':circularimageview')
 }
 
 task copyDependencies(type: Copy) {
