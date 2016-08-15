@@ -1,5 +1,6 @@
 package io.wumf.wumf.viewHolder;
 
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import io.wumf.wumf.R;
+import io.wumf.wumf.otto.BusProvider;
+import io.wumf.wumf.otto.event.OnAppItemClickEvent;
 import io.wumf.wumf.realmObject.RemoteApp;
 import io.wumf.wumf.view.UsersCountTextView;
 
@@ -25,6 +28,14 @@ public class RemoteAppViewHolder extends AnyRealmViewHolder<RemoteApp> {
         icon = (ImageView) itemView.findViewById(R.id.icon);
         label = (TextView) itemView.findViewById(R.id.label);
         count = (UsersCountTextView) itemView.findViewById(R.id.count);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String packageName = (String) v.getTag();
+                BusProvider.getInstance().post(new OnAppItemClickEvent(packageName));
+            }
+        });
     }
 
     @Override
@@ -34,6 +45,7 @@ public class RemoteAppViewHolder extends AnyRealmViewHolder<RemoteApp> {
                 .into(icon);
         label.setText(item.getName());
         count.setCount(item.getUsersCount());
+        itemView.setTag(item.getPackageName());
     }
 
 }

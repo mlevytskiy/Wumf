@@ -9,6 +9,15 @@ android {
         exclude 'META-INF/NOTICE'
     }
 
+    signingConfigs {
+        release {
+            storeFile file('keystore.jks')
+            keyAlias 'mlevytskiy'
+            storePassword "u6senatoru7"
+            keyPassword "u6senatoru7"
+        }
+    }
+
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 

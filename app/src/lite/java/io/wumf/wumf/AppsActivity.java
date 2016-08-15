@@ -17,7 +17,9 @@ import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
 import io.wumf.wumf.firebase.uploadDataToPlacesNode.UsersCountListener;
 import io.wumf.wumf.otto.BusProvider;
 import io.wumf.wumf.otto.event.FirebaseLoadAppsFinishedEvent;
+import io.wumf.wumf.otto.event.OnAppItemClickEvent;
 import io.wumf.wumf.realmObject.RemoteApp;
+import io.wumf.wumf.util.IntentApi;
 import io.wumf.wumf.view.CustomTopBar;
 
 /**
@@ -68,6 +70,15 @@ public class AppsActivity extends AnimationActivity {
         super.onStop();
         BusProvider.getInstance().unregister(this);
         topBar.unbind();
+    }
+
+    @Subscribe
+    public void onItemClickEvent(OnAppItemClickEvent event) {
+        try {
+            startActivity(IntentApi.openGooglePlayPage(event.appId));
+        } catch (Exception e) {
+            //do nothing
+        }
     }
 
     @Subscribe
