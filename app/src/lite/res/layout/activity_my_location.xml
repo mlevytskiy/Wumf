@@ -71,8 +71,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
-        android:gravity="center"
-        android:visibility="gone">
+        android:gravity="center">
 
         <View
             android:layout_width="0dp"
@@ -83,7 +82,7 @@
             android:id="@+id/my_wall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="my wall"
+            android:text="my apps"
             app:tv_typeface="roboto_light" />
 
         <View
@@ -95,7 +94,7 @@
             android:id="@+id/follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="follow"
+            android:text="registration"
             app:tv_typeface="roboto_light" />
 
         <View

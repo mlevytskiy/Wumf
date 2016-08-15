@@ -1,7 +1,6 @@
 package io.wumf.wumf.view;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
@@ -21,13 +20,13 @@ import java.util.List;
  *
  * width = textView.getPaint().measureText(text);
  */
-public class RoundedBackgroundSpan extends ReplacementSpan {
+public class RoundedBackgroundSpan2 extends ReplacementSpan {
 
     private int color;
     private List<Rect> rects = new ArrayList<>();
     private float roundCorner;
 
-    public RoundedBackgroundSpan(int color, float roundCorner) {
+    public RoundedBackgroundSpan2(int color, float roundCorner) {
         this.color = color;
         this.roundCorner = roundCorner;
     }
@@ -43,7 +42,7 @@ public class RoundedBackgroundSpan extends ReplacementSpan {
         for (Rect rect : rects) {
             RectF rectF = new RectF(rect.x1, top, rect.x2, bottom);
             paint.setColor(color);
-            canvas.drawRoundRect(rectF, roundCorner, roundCorner, paint);
+            drawRandomShapeInsideRect(canvas, rectF, paint);
         }
 
     }
@@ -59,7 +58,7 @@ public class RoundedBackgroundSpan extends ReplacementSpan {
     private void drawRandomShapeInsideRect(Canvas canvas, RectF rectF, Paint paint) {
         Path path = new Path();
         PointF point1 = new PointF(rectF.left, rectF.top);
-        PointF point2 = new PointF(rectF.left, rectF.right);
+        PointF point2 = new PointF(rectF.right, rectF.top);
         PointF point3 = new PointF(rectF.right, rectF.bottom);
         PointF point4 = new PointF(rectF.left, rectF.bottom);
         path.lineTo((int) point1.x, (int) point1.y);

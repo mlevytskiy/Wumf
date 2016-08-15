@@ -5,3 +5,16 @@ Apps
 
 Friends
  - see friend detail
+
+
+ Main page:
+
+ -search
+ -registration
+
+ after registration :
+
+ -like (pick one the best app, you have only one like for a month)
+
+ -contacts (show all contacts who use wumf)
+

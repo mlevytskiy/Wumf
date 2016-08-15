@@ -18,26 +18,26 @@ import io.wumf.wumf.R;
  */
 public class ClickableTextView extends com.github.omadahealth.typefaceview.TypefaceTextView {
 
-    private RoundedBackgroundSpan roundedBackgroundSpan;
+    private RoundedBackgroundSpan2 roundedBackgroundSpan;
     private boolean isPress = false;
 
     public ClickableTextView(Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public ClickableTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public ClickableTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context);
     }
 
-    private void init() {
-        setTextSize(20);
+    private void init(Context context) {
+        setTextSize(context.getResources().getDimension(R.dimen.text_size));
         setTextColor(Color.BLACK);
         setTextIsSelectable(false);
         setOnClickListener(new OnClickListener() {
@@ -53,7 +53,7 @@ public class ClickableTextView extends com.github.omadahealth.typefaceview.Typef
 
         SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
 
-        roundedBackgroundSpan = new RoundedBackgroundSpan(Color.WHITE,
+        roundedBackgroundSpan = new RoundedBackgroundSpan2(Color.WHITE,
                 getResources().getDimension(R.dimen.round_corner));
         float countrySize = getPaint().measureText(str);
         float spaceSize = getPaint().measureText(" ");

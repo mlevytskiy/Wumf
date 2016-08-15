@@ -64,7 +64,7 @@ public class XTextView extends com.github.omadahealth.typefaceview.TypefaceTextV
 
         Drawable dr = getResources().getDrawable(R.drawable.ic_person);
         dr.setBounds(0, 0, getLineHeight(), getLineHeight());
-        dr.setColorFilter(getCurrentTextColor(), PorterDuff.Mode.MULTIPLY);
+        dr.setColorFilter(getCurrentTextColor(), PorterDuff.Mode.SRC_ATOP);
         ImageSpan imageSpan = new ImageSpan(dr);
         stringBuilder.setSpan( imageSpan, startIndexForCount, startIndexForCount+1, SpannableStringBuilder.SPAN_INCLUSIVE_EXCLUSIVE );
 
