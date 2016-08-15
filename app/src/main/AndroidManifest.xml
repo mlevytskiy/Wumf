@@ -40,6 +40,9 @@
         <activity android:name=".activity.FirebaseAppsActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".activity.MyWallActivity"
+            android:screenOrientation="portrait" />
+
         <receiver android:name=".broadcastReceiver.AddAppBR"
                   android:exported="true"
                   android:enabled="true" >
