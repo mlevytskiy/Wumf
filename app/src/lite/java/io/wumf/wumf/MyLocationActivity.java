@@ -1,6 +1,8 @@
 package io.wumf.wumf;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +15,9 @@ import org.angmarch.views.NiceSpinner;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -26,6 +31,7 @@ import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
 import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
 import io.wumf.wumf.rest.LocationApi;
 import io.wumf.wumf.rest.pojo.Location;
+import io.wumf.wumf.util.IntentApi;
 import io.wumf.wumf.view.ClickableTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,7 +103,7 @@ public class MyLocationActivity extends PrepareDataActivity {
                     countryView.setSelectedIndex(countries.indexOf(application.userCountry));
 
                     try {
-                        cities = Arrays.asList( findCities(application.userCountry) );
+                        cities = Arrays.asList(findCities(application.userCountry));
                         cityView.attachDataSource(cities);
                     } catch (IOException e) {
                         Log.e(TAG, e.getMessage());
@@ -124,20 +130,89 @@ public class MyLocationActivity extends PrepareDataActivity {
 
         });
         initCollaborationMenu();
+
+        String phoneNumberVerifier = "sms.wumf.com.verifyphonenumber";
+        if (isPackageInstalled(phoneNumberVerifier)) {
+            if (checkAppSignature(phoneNumberVerifier)) {
+                Intent verifyPhoneNumberIntent = new Intent();
+                verifyPhoneNumberIntent.setAction("verify.phone.number.VERIFY_PHONE_NUMBER_ACTION");
+                verifyPhoneNumberIntent.putExtra("phone_number", "+3400009");
+                startActivityForResult(verifyPhoneNumberIntent, 1);
+            } else {
+                System.out.print("");
+            }
+
+        } else {
+            IntentApi.openGooglePlayPage(phoneNumberVerifier);
+        }
+
+    }
+
+    private boolean checkAppSignature(String packageName) {
+        try {
+            Signature[] sigs = getPackageManager().getPackageInfo(packageName, PackageManager.GET_SIGNATURES).signatures;
+            if (sigs.length == 1) {
+                if (TextUtils.equals("CB10A8D1241EC3EC0B4C49161030DF670EAFE48F", getSHA1(sigs[0].toByteArray()))) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        } catch (NoSuchProviderException e) {
+            return false;
+        } catch (NoSuchAlgorithmException e) {
+            return false;
+        }
+    }
+
+    public static String getSHA1(byte[] sig) throws NoSuchProviderException, NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA1", "BC");
+        digest.update(sig);
+        byte[] hashtext = digest.digest();
+        return bytesToHex(hashtext);
+    }
+
+    private static String bytesToHex(byte[] bytes) {
+        final char[] hexArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
+                '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+        char[] hexChars = new char[bytes.length * 2];
+        int v;
+        for (int j = 0; j < bytes.length; j++) {
+            v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4];
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+        }
+        return new String(hexChars);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(this, "onActivityResult", Toast.LENGTH_LONG).show();
+    }
+
+    private boolean isPackageInstalled(String packagename) {
+        PackageManager pm = getPackageManager();
+        try {
+            pm.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
     private void initCollaborationMenu() {
-        ClickableTextView myWall = (ClickableTextView) findViewById(R.id.my_wall);
-        myWall.setCustomText(myWall.getText().toString());
-        myWall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MyLocationActivity.this, MainActivity.class));
-            }
-        });
-
-        ClickableTextView follow = (ClickableTextView) findViewById(R.id.follow);
-        follow.setCustomText(follow.getText().toString());
+//        ClickableTextView myWall = (ClickableTextView) findViewById(R.id.my_wall);
+//        myWall.setCustomText(myWall.getText().toString());
+//        myWall.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MyLocationActivity.this, MainActivity.class));
+//            }
+//        });
+//
+//        ClickableTextView follow = (ClickableTextView) findViewById(R.id.follow);
+//        follow.setCustomText(follow.getText().toString());
     }
 
     public void onClickSearchApps(View view) {
