@@ -25,7 +25,7 @@
         android:textColor="@android:color/black"
         android:textSize="20dp"
         app:tv_typeface="roboto_light"
-        android:text="Wumf - app finder"
+        android:text="Popular apps in your city ;)"
         android:background="@drawable/rect"
         android:gravity="center" />
 
@@ -71,7 +71,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone" >
 
         <View
             android:layout_width="0dp"

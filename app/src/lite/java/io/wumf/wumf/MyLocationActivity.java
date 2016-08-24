@@ -24,15 +24,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import io.wumf.wumf.activity.MainActivity;
 import io.wumf.wumf.activity.common.PrepareDataActivity;
 import io.wumf.wumf.application.WumfApp;
 import io.wumf.wumf.firebase.uploadDataToAppsNode.FirebaseAppsUtil;
 import io.wumf.wumf.firebase.uploadDataToPlacesNode.FirebasePlaceUtils;
 import io.wumf.wumf.rest.LocationApi;
 import io.wumf.wumf.rest.pojo.Location;
-import io.wumf.wumf.util.IntentApi;
-import io.wumf.wumf.view.ClickableTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -131,20 +128,20 @@ public class MyLocationActivity extends PrepareDataActivity {
         });
         initCollaborationMenu();
 
-        String phoneNumberVerifier = "sms.wumf.com.verifyphonenumber";
-        if (isPackageInstalled(phoneNumberVerifier)) {
-            if (checkAppSignature(phoneNumberVerifier)) {
-                Intent verifyPhoneNumberIntent = new Intent();
-                verifyPhoneNumberIntent.setAction("verify.phone.number.VERIFY_PHONE_NUMBER_ACTION");
-                verifyPhoneNumberIntent.putExtra("phone_number", "+3400009");
-                startActivityForResult(verifyPhoneNumberIntent, 1);
-            } else {
-                System.out.print("");
-            }
-
-        } else {
-            IntentApi.openGooglePlayPage(phoneNumberVerifier);
-        }
+//        String phoneNumberVerifier = "sms.wumf.com.verifyphonenumber";
+//        if (isPackageInstalled(phoneNumberVerifier)) {
+//            if (checkAppSignature(phoneNumberVerifier)) {
+//                Intent verifyPhoneNumberIntent = new Intent();
+//                verifyPhoneNumberIntent.setAction("verify.phone.number.VERIFY_PHONE_NUMBER_ACTION");
+//                verifyPhoneNumberIntent.putExtra("phone_number", "+3400009");
+//                startActivityForResult(verifyPhoneNumberIntent, 1);
+//            } else {
+//                System.out.print("");
+//            }
+//
+//        } else {
+//            IntentApi.openGooglePlayPage(phoneNumberVerifier);
+//        }
 
     }
 
